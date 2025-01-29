@@ -35,6 +35,10 @@ class Init{
 	protected $multisite_administrator;
 
 	protected $singlesite_administrator;
+	
+	protected $plugin_name;
+	protected $version;
+	protected $plugin_text_domain;
 
 
 	public function __construct() {
