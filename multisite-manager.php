@@ -13,12 +13,12 @@
 
  namespace Wp_multisite_manager;
  define( __NAMESPACE__ . '\MM', __NAMESPACE__ . '\\' );
- define( MM . 'PLUGIN_NAME', 'wp-multisite-manager' );
+ define( MM . 'PLUGIN_NAME', 'wp-multisite-header-and-footer');
  define( MM . 'PLUGIN_VERSION', '1.0.0' );
  define( MM . 'PLUGIN_NAME_DIR', plugin_dir_path( __FILE__ ) );
  define( MM . 'PLUGIN_NAME_URL', plugin_dir_url( __FILE__ ) );
  define( MM . 'PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
- define( MM . 'PLUGIN_TEXT_DOMAIN', 'wp-multisite-manager' );
+ define( MM . 'PLUGIN_TEXT_DOMAIN', 'wp-multisite-header-and-footer' );
 
  require_once 'Inc/activator.php';
  require_once 'Inc/deactivator.php';
