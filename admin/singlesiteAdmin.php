@@ -40,7 +40,7 @@ class SinglesiteAdmin{
     function registerHeader(){
        
         $enabled = get_site_option('enabled');
-        if (($enabled == 1)&&( is_page())){ 
+        if (($enabled == 1)){ 
             $template_data = ["logos" => $this->print_logos('header_images','header-image')];
             $templateLoader = Inc\My_Template_Loader::getInstance();	
             $templateLoader->set_template_data($template_data);
@@ -52,7 +52,7 @@ class SinglesiteAdmin{
 
     function registerFooter(){
         $enabled = get_site_option('footer_enabled');
-        if (($enabled == 1)&&( is_page())){ 
+        if (($enabled == 1)){ 
             $template_data = ["logos" => $this->print_logos('footer_images','footer-image')];
             $templateLoader = Inc\My_Template_Loader::getInstance();	
             $templateLoader->set_template_data($template_data);
