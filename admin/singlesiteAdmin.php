@@ -63,23 +63,24 @@ class SinglesiteAdmin{
 
     function print_logos($option, $cssClass){
         switch_to_blog(1);
-
-        $content ="";
+    
+        $logos = [];
         $images = get_site_option($option);
-
-        if($images){
-            foreach ($images as $image){
+    
+        if ($images) {
+            foreach ($images as $image) {
                 $url = wp_get_attachment_url($image['id']);
-                $content = $content .  "<a class='header-image-container' href=" . $image['link'] .  '>
-                                <img class="' . $cssClass . '" src="' . $url . '"></img>
-                            </a>';
+                $logos[] = [
+                    'url' => $url,
+                    'link' => $image['link'],
+                    'css_class' => $cssClass
+                ];
             }
         }
-
+    
         restore_current_blog();
-
-        return $content;
-       
+    
+        return $logos;  // Devuelve un array de logos
     }
 
     
