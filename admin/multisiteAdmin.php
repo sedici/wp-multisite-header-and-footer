@@ -4,9 +4,6 @@ namespace Wp_multisite_manager\Admin;
 use Sites_table;
 use Wp_multisite_manager as MM;
 
-require_once plugin_dir_path( __DIR__ ) . 'helpers.php'; 
-
-
 
 
 class multisiteAdmin{
