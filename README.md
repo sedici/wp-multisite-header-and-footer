@@ -1,4 +1,4 @@
-# Multisite Header and Footer | 1.0 (Versión de prueba)
+# Multisite Header and Footer | 1.0
 
 Un plugin para WordPress que permite agregar un header y footer personalizados a nivel de red, mostrándolos en todos los sitios dentro de una instalación multisitio.
 
