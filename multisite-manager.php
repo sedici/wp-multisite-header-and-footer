@@ -9,6 +9,7 @@
  * Copyright (c) 2015 SEDICI UNLP, http://sedici.unlp.edu.ar
  * Domain Path: /languages
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ * Network: true
  */
 
  namespace Wp_multisite_manager;
