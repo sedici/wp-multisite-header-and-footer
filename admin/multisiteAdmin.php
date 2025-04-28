@@ -218,26 +218,37 @@ class multisiteAdmin{
 
     # Register all the MULTISITE Menu pages --------------------------------------------------------------
 
-    public function add_Multisite_Menu_Pages(){
+    public function add_Multisite_Menu_Pages() {
 
-    
-        // 1.  Crea el menú principal *directamente* como la página de configuración de Header:
+        // 1. Crear el menú padre que apunta directamente al primer hijo (Administrar Header)
         add_menu_page(
-            __('Header', $this->plugin_text_domain), // Título del menú (y de la página Header)
-            __(' Administrar Header', $this->plugin_text_domain), // Texto del menú
-            'manage_options', // Capacidad requerida
-            'config-header', // Slug del menú (y de la página Header) - ¡Importante!
-            array($this, 'header_menu_page') // Función de callback para la página Header
+            __('Multisite Header and Footer', $this->plugin_text_domain), 
+            __('Multisite Header and Footer', $this->plugin_text_domain), 
+            'manage_options',
+            'config-header',
+            array($this, 'header_menu_page'), 
+            'dashicons-admin-generic', 
+            6
         );
     
-        // 2.  Añade el submenú "Footer" como submenú de "Header":
+        // 2. Submenú: Administrar Header
         add_submenu_page(
-            'config-header', // Slug del menú *padre* 
-            __('Footer', $this->plugin_text_domain), // Título de la página Footer
-            __(' Administrar Footer', $this->plugin_text_domain), // Texto del menú Footer
+            'config-header', // Slug del menú padrE
+            __('Administrar Header', $this->plugin_text_domain), // Título de la página Header
+            __('Administrar Header', $this->plugin_text_domain), // Texto del submenú
             'manage_options', // Capacidad requerida
-            'config-footer', // Slug de la página Footer
-            array($this, 'footer_menu_page') // Función de callback para la página Footer
+            'config-header', // Slug (mismo que el padre)
+            array($this, 'header_menu_page') // Función de callback
+        );
+    
+        // 3. Submenú: Administrar Footer
+        add_submenu_page(
+            'config-header', // Slug del menú padre
+            __('Administrar Footer', $this->plugin_text_domain), // Título de la página Footer
+            __('Administrar Footer', $this->plugin_text_domain), // Texto del submenú
+            'manage_options', // Capacidad requerida
+            'config-footer', // Slug
+            array($this, 'footer_menu_page') // Función de callback
         );
     
     }
