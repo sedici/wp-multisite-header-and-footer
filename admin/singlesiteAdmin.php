@@ -40,7 +40,7 @@ class SinglesiteAdmin{
     function registerHeader(){
        
         $enabled = get_site_option('enabled');
-        if (($enabled == 1)&&( is_page())){ 
+        if (($enabled == 1)){ 
             $template_data = ["logos" => $this->print_logos('header_images','header-image')];
             $templateLoader = Inc\My_Template_Loader::getInstance();	
             $templateLoader->set_template_data($template_data);
@@ -52,7 +52,7 @@ class SinglesiteAdmin{
 
     function registerFooter(){
         $enabled = get_site_option('footer_enabled');
-        if (($enabled == 1)&&( is_page())){ 
+        if (($enabled == 1)){ 
             $template_data = ["logos" => $this->print_logos('footer_images','footer-image')];
             $templateLoader = Inc\My_Template_Loader::getInstance();	
             $templateLoader->set_template_data($template_data);
@@ -63,23 +63,24 @@ class SinglesiteAdmin{
 
     function print_logos($option, $cssClass){
         switch_to_blog(1);
-
-        $content ="";
+    
+        $logos = [];
         $images = get_site_option($option);
-
-        if($images){
-            foreach ($images as $image){
+    
+        if ($images) {
+            foreach ($images as $image) {
                 $url = wp_get_attachment_url($image['id']);
-                $content = $content .  "<a class='header-image-container' href=" . $image['link'] .  '>
-                                <img class="' . $cssClass . '" src="' . $url . '"></img>
-                            </a>';
+                $logos[] = [
+                    'url' => $url,
+                    'link' => $image['link'],
+                    'css_class' => $cssClass
+                ];
             }
         }
-
+    
         restore_current_blog();
-
-        return $content;
-       
+    
+        return $logos;  // Devuelve un array de logos
     }
 
     

@@ -1,35 +1,30 @@
-# Multisite Manager | 1.0 (Versión de prueba)
+# Multisite Header and Footer | 1.0
 
-## Plugin de Wordpress para agregar funcionalidad en multisitios
+Un plugin para WordPress que permite agregar un header y footer personalizados a nivel de red, mostrándolos en todos los sitios dentro de una instalación multisitio.
 
-Este plugin de wordpress brinda funcionalidades para las instalaciónes de multisitio de Wordpress.
-Las principales son:
+## Descripción
 
-- [x] Permitir configurar un Header global para todos los sitios.
+Multisite Header and Footer es un plugin diseñado específicamente para instalaciones multisitio de WordPress. El plugin permite a los administradores de red definir un header y un footer común que se mostrará automáticamente en todos los sitios de la red.
 
-- [x] Permitir configurar un Footer global para todos los sitios.
+## Características
 
-- [x] Crear un Custom Post Type para representar a los sitios, recuperando la información automáticamente.
+- Configuración centralizada desde el panel de Network Admin
+- Editor visual para personalizar fácilmente el contenido del header y footer
+- Posibilidad de excluir sitios específicos [PROXIMAMENTE]
 
-- [x] Shortcode para listar los CPT de sitios al estilo "Portafolio"
+## Instalación
 
-## Shortcodes
+1. Descarga el archivo .zip del plugin
+2. En tu panel de Network Admin, ve a Plugins → Añadir Nuevo
+3. Haz clic en "Subir Plugin" y selecciona el archivo descargado
+4. Haz clic en "Instalar ahora"
+5. Una vez instalado, haz clic en "Activar plugin para toda la red"
 
-- **[show_sites_portfolio ]** => Muestra todos los CPT de sitios disponibles, al estilo "Portafolio".
-    - 'widget_color' : Sirve para elegir el color que va a tener el contenedor de todo el widget de portafolio. 
-    
-    - 'box_color' : Nos permite indicar que color queremos que tenga el contenedor de cada "caja" individual del portafolio.
-    
-    - 'order_by' : Sirve para elegir el criterio de orden de los sitios (por titulo, fecha de publicacion, etc)
-        - none
-        - ID
-        - title
-        - name (post slug)
-        - date
-        - modified (ultima fecha de modificacion)
-        - rand (orden random)
+## Configuración
 
-    - 'order' : Sirve para elegir en que orden mostrar los sitios (Ascendente o Descendente) 
-        - ASC
-        - DESC
+1. Después de activar el plugin, ve a Network Admin → Multisite Header and Footer
+2. Utiliza el editor para crear el contenido de tu header y footer
+3. Configura las opciones adicionales según tus necesidades
+4. Guarda los cambios
+
 

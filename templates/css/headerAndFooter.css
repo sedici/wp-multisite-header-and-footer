@@ -69,7 +69,6 @@ body {
     /* Header IMAGEs */
     
     .header-image-container{
-        height: min-content!important;
         display: flex;
         justify-content: center;
         align-items: center;

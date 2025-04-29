@@ -7,8 +7,6 @@ use Wp_multisite_manager\Inc as Inc;
 
 require_once 'class-loader.php';
 
-require_once plugin_dir_path( __DIR__ ) . 'helpers.php'; 
-
 require plugin_dir_path( __DIR__ ) . 'Inc/class-My-Template-Loader.php';
 
 

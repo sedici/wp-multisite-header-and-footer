@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Wp-multisite-header-and-footer
+ * Plugin Name: Multisite Header and Footer
  * Plugin URI: http://sedici.unlp.edu.ar/
  * Description: This plugin allows to create and display a footer or header on all sites of your multisite. 
  * Version: 1.0 (Beta)
@@ -9,6 +9,7 @@
  * Copyright (c) 2015 SEDICI UNLP, http://sedici.unlp.edu.ar
  * Domain Path: /languages
  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ * Network: true
  */
 
  namespace Wp_multisite_manager;
