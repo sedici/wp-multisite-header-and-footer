@@ -38,7 +38,12 @@ class Init{
 	protected $version;
 	protected $plugin_text_domain;
 
-
+	/**
+     * Constructor de la clase Init.
+     * Inicializa propiedades del plugin, carga la clase Loader,
+     * registra hooks de administración y frontend,
+     * incluye shortcodes y agrega filtros de templates.
+     */
 	public function __construct() {
 
 		$this->plugin_name = MM\PLUGIN_NAME;
@@ -55,38 +60,46 @@ class Init{
 		$this->define_public_hooks();
 	}
 
+	/**
+     * Ejecuta todos los hooks registrados a través de la clase Loader.
+     */
 	public function run() {
 		$this->loader->run();
 	} 
 
-	# Register ADMIN Styles and Scripts --------------------------------------------------------------------
-
+	/**
+     * Registra y encola los estilos/scripts necesarios para la interfaz de administración.
+     */
 	function reg_admin_styles(){
 
 		$js_url = MM\PLUGIN_NAME_URL.'admin/js/';
 
 		wp_register_script('dinamicHeader', $js_url . 'dinamicHeader.js', array('jquery'),'1.1', true);
- 
 		wp_enqueue_script('dinamicHeader');
 	
-
 		$css_url = MM\PLUGIN_NAME_URL.'admin/css/administrationStyle.css';
 
 		wp_register_style("administrationStyle", $css_url);
-
 		wp_enqueue_style("administrationStyle");
 	}
 
+	/**
+     * Define y registra los hooks específicos para el área de administración de WordPress.
+     * Encola los estilos y scripts de administración.
+     */
+	private function define_admin_hooks() {
+	
+		if ( ! defined('ABSPATH') ) {
+			/** Set up WordPress environment */
+			require_once( dirname( __FILE__ ) . '/wp-load.php' );
+		}
+		add_action('admin_enqueue_scripts',array($this,'reg_admin_styles'),30);
 
-	function insert_modal_js (){ 
-		wp_register_script('identify-modal',  MM\PLUGIN_NAME_URL . 'templates/js/modal-ajax.js', array('jquery'), '1', true );
-		wp_enqueue_script('identify-modal');	
-		wp_localize_script('identify-modal','imjs_vars',array('url'=>admin_url('admin-ajax.php')));
 	}
 
-	
-	# Register PUBLIC Styles and Scripts --------------------------------------------------------------------
-	
+	/**
+     * Registra y encola los estilos CSS para el frontend público del plugin.
+     */	
 	function reg_public_styles() {
 		$js_url = MM\PLUGIN_NAME_URL.'admin/js/';
 		
@@ -104,126 +117,25 @@ class Init{
 
 	}
 
-	# End of Styles and Scripts register --------------------------------------------------------------------
-
-	function add_type_attribute($tag, $handle, $src) {
-		// if not your script, do nothing and return original $tag
-		if ( 'carrousel' !== $handle ) {
-			return $tag;
-		}
-		// change the script tag by adding type="module" and return it.
-		$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
-		return $tag;
-	}
-
-	# Register ADMIN Hooks --------------------------------------------------------------------
-
-	/*
-	* Esta función define los Hooks de ADMIN para SINGLE SITE
-	*
-	*/
-
-
-	private function define_admin_hooks() {
-
-
-		// Solo debemos registrar el CPT de sitios si es el sitio principal
-
-		if(is_main_site()){
-
-		
-	
-			/* wp_enqueue_scripts es el hook usado para encolar el script insertar_modal_js
-			que sera usado en el frontend */
-		
-
-			/* wp_enqueue_scripts es el hook usado para encolar el script carga-dinamica.js
-			que sera usado en el frontend */
-			add_action('wp_enqueue_scripts',array($this,'dynamic_view_js'));
-
-			/* Hook usado para encolar scripts helpers */
-			add_action('wp_enqueue_scripts',array($this,'helpers_js'));
-
-
-			add_action('wp_ajax_load_more',array($this,'load_more')  );
-			add_action( 'wp_ajax_nopriv_load_More', array($this,'load_more') );
-
-		}
-
-
-		if ( ! defined('ABSPATH') ) {
-			/** Set up WordPress environment */
-			require_once( dirname( __FILE__ ) . '/wp-load.php' );
-		}
-	
-		// Register Scripts and Styles
-		
-
-		add_action('admin_enqueue_scripts',array($this,'reg_admin_styles'),30);
-
-	}
-
-	function load_plugin_textdomain() {
-		load_plugin_textdomain( 'wp-multisite-manager', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
-	  }
-
-
-    private function define_public_hooks() {
+	/**
+     * Define y registra los hooks específicos para el frontend público de WordPress.
+     * Carga el text domain y encola los estilos públicos.
+     */
+	private function define_public_hooks() {
 		add_action( 'plugins_loaded', 'load_plugin_textdomain' );
-
-		add_filter('script_loader_tag', array($this,'add_type_attribute') , 10, 3);
-
 		add_action('wp_enqueue_scripts',array($this,'reg_public_styles'),30);
 
 	}
 
-
-    // Función para registrar los shortcodes
-
-	function dynamic_view_js (){ 
-		wp_register_script('dynamic_addition',  MM\PLUGIN_NAME_URL . 'templates/js/carga-dinamica.js', array('jquery'), '1', true );
-		wp_enqueue_script('dynamic_addition');	
-	}
-
-	function helpers_js() {
-		wp_register_script('helpers_multisite_js',  MM\PLUGIN_NAME_URL . 'templates/js/helpers.js');
-		wp_enqueue_script('helpers_multisite_js');
-	}
-
 	
-
-
-
-
-
-
-
-
-	function get_image_url($post_id) {
-
-		if(get_post_meta(get_the_ID(),'site_screenshot') and (!empty(get_post_meta(get_the_ID(),'site_screenshot')[0]) ))
-		{
-			$image = $this->get_image($post_id,'site_screenshot');
-
-			$image_src = '';
-
-			if(!is_wp_error($image)){
-				$image_src = wp_get_attachment_url($this->get_image($post_id,'site_screenshot')) ;
-		 	} 
-
-			return $image_src;
-
-		}
+	/**
+     * Carga el text domain del plugin para permitir la traducción de cadenas de texto.
+     */
+	function load_plugin_textdomain() {
+		load_plugin_textdomain( 'wp-multisite-manager', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
-	
 
-	function get_image($post_id,$field){
-		return get_post_meta($post_id, $field,true);
-	}
 
     
-
-
-
 
 }
