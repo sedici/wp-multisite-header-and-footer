@@ -1,83 +1,56 @@
+jQuery(document).ready(function($) {
+    // 1. Mensaje para saber si el script se cargó correctamente.
+    console.log('dinamicHeader.js cargado y listo.');
 
-jQuery(document).ready(function(){
+    // Objeto para llevar la cuenta de los bloques
+    let blockCounters = { 'col-1': 0, 'col-2': 0, 'col-3': 0 };
 
-    if(document.getElementById("add-img-input") !== null){
-        document.getElementById("add-img-input").addEventListener("click",addInput)
+    /**
+     * LÓGICA PARA AÑADIR NUEVOS BLOQUES
+     */
+    $('.add-block-button').on('click', function() {
+        // 2. Mensaje para saber si el clic en el botón funciona.
+        console.log('Botón "Añadir Bloque" presionado.');
 
-        document.getElementById("delete-img-input").addEventListener("click",removeLastInput)
-    
-        document.querySelectorAll('.trashImg').forEach(occurence => {
-            occurence.addEventListener('click', deleteImage);
-          });
-    
-        // Función para agregar inputs dinamicamente
-    
-        function addInput(e){
-    
-            // Aumento en 1 el contador de campos
-    
-            button = document.getElementById("add-img-input");
-            var count = parseInt(button.value) +1;
-            button.value = count;
-    
-            // Creo el input en un string
-    
-            var content= '<hr><div class="general-form-field image-row">' +
-                            '<div><h2 class="filds-titles"> Subir imagen '+ count + '</h2>' +
-                '<input type="file" name="image-'+ count + '" value="" ></div>' + 
-    
-                '<div><h2 class="filds-titles"> Link asociado a la imagen '+ count + ' </h2>' +
-                '<input type="url" name="image_link-' + count + '" ></div></div>'
-    
-            // Parseo el String a HTML y lo agrego al div que contiene los campos de imagen
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(content, 'text/html');
-    
-            document.getElementById("images-container").append(doc.body)
-    
-            if (button.value > 1){
-                document.getElementById("delete-img-input").hidden = false
-            }
+        const columnId = $(this).data('column');
+        const blockType = $(this).siblings('.block-type-selector').val();
+        
+        // 3. Mensaje para ver qué estamos intentando añadir.
+        console.log('Intentando añadir bloque tipo "' + blockType + '" a la columna "' + columnId + '".');
+
+        const template = $('#template-' + blockType + '-block');
+        if (!template.length) {
+            console.error('¡ERROR! No se encontró la plantilla: #template-' + blockType + '-block');
+            return;
         }
-    
-    
-    
-    
-        // Función para eliminar inputs dinamicamente
-    
-        function removeLastInput(){
-    
-            // Modifico el contador de campos
-            inputCount = parseInt(document.getElementById("add-img-input").value);
-            document.getElementById("add-img-input").value = inputCount -1;
-    
-            // Si quedan al menos 2 campos
-            if(inputCount > 1){
-    
-                if(inputCount-1 == 1){
-                    document.getElementById("delete-img-input").hidden = true
-                }
-                // Elimino el último campo
-                lastChild = document.getElementById("images-container").lastChild.remove()
-           
-            }
-        }
-    
-        function deleteImage(e){
-            if(confirm("Estás seguro de que quieres borrar este elemento?")){
-                button = e.target.parentElement
-                button.parentElement.remove()
-            }
-    
-        }
-    
-    
-    
-    
-    
-    
-    
-    }
-})
+        let templateHtml = template.html();
+        
+        templateHtml = templateHtml.replace(/COLUMN_ID/g, columnId);
+        templateHtml = templateHtml.replace(/BLOCK_INDEX/g, blockCounters[columnId]);
 
+        $('#blocks-' + columnId).append(templateHtml);
+        blockCounters[columnId]++;
+        
+        console.log('Bloque añadido correctamente.');
+    });
+
+    /**
+     * LÓGICA PARA ELIMINAR BLOQUES
+     */
+    $('body').on('click', '.remove-block', function() {
+        if (confirm("¿Estás seguro de que quieres borrar este bloque?")) {
+            $(this).closest('.block').remove();
+        }
+    });
     
+    /**
+     * LÓGICA PARA ELIMINAR IMÁGENES YA GUARDADAS
+     */
+    $('.trashImg').on('click', function(e) {
+        e.preventDefault();
+        if (confirm("¿Estás seguro de que quieres borrar esta imagen guardada?")) {
+            $(this).closest('.form-image-box').remove();
+        }
+    });
+
+});

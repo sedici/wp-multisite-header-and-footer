@@ -23,6 +23,7 @@
 
  require_once 'Inc/activator.php';
  require_once 'Inc/deactivator.php';
+require_once 'Inc/class-headerfooter-dataservice.php';
 
 
  require_once 'core/class-init.php';
