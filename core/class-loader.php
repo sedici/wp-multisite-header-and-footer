@@ -3,13 +3,7 @@
 namespace Wp_multisite_manager\Core;
 
 /**
- * Registra todas las acciones y filtros del plugin.
- * */
-
-/**
  * Registrar todas las acciones y filtros del plugin.
- *
- * Ejecutar función para ejecutar la lista de acciones y filtros.
  */
 class Loader
 {
