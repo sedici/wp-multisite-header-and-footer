@@ -13,8 +13,6 @@ class Activator {
 	 */
 	public static function activate() {
 
-		# Cuando agreguemos el CPT de Sitios, lo vamos a tener que registrar aca
-
 	}
 
 }
