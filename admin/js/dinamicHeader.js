@@ -1,7 +1,5 @@
 jQuery(document).ready(function($) {
     // 1. Mensaje para saber si el script se cargó correctamente.
-    console.log('dinamicHeader.js cargado y listo.');
-
     // Objeto para llevar la cuenta de los bloques
     let blockCounters = { 'col-1': 0, 'col-2': 0, 'col-3': 0 };
 
@@ -10,13 +8,11 @@ jQuery(document).ready(function($) {
      */
     $('.add-block-button').on('click', function() {
         // 2. Mensaje para saber si el clic en el botón funciona.
-        console.log('Botón "Añadir Bloque" presionado.');
 
         const columnId = $(this).data('column');
         const blockType = $(this).siblings('.block-type-selector').val();
         
         // 3. Mensaje para ver qué estamos intentando añadir.
-        console.log('Intentando añadir bloque tipo "' + blockType + '" a la columna "' + columnId + '".');
 
         const template = $('#template-' + blockType + '-block');
         if (!template.length) {

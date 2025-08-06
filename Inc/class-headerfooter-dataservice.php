@@ -13,29 +13,34 @@ class HeaderFooter_DataService {
         }
         return get_site_option($option_name);
     }
-    
+ 
     public function save_form_data(array $post_data) {
-        $is_footer_form = isset($post_data['footer_enabled']) || isset($post_data['footer_css']);
-        
-        $fields_header = ['enabled', 'title_text', 'title_link', 'header_text', 'header_css'];
-        $fields_footer = ['footer_enabled', 'footer_fb', 'footer_tw', 'footer_ig', 'footer_email', 'footer_phone', 'footer_text', 'footer_text_link', 'footer_css'];
-        $fields = $is_footer_form ? $fields_footer : $fields_header;
-
-        foreach ($fields as $field) {
-            $value = $post_data[$field] ?? null;
-            if (isset($value)) {
-                $this->save_value($field, stripslashes($value));
-            } else if (in_array($field, ['enabled', 'footer_enabled'])) {
-                $this->save_value($field, 0);
-            }
-        }
-        
-        $image_option_name = $is_footer_form ? 'footer_images' : 'header_images';
-        $this->process_images($image_option_name);
+       if (isset($post_data['header_layout']) && is_array($post_data['header_layout'])) {
+        $this->process_header_layout_blocks($post_data['header_layout']);
     }
+
+     
+    }
+
+ private function process_header_layout_blocks(array $header_layout) {
+    foreach ($header_layout as $column_id => $blocks) {
+        foreach ($blocks as $block_index => $block_data) {
+            if (!isset($block_data['data']) || !is_array($block_data['data'])) {
+                continue; // Saltar bloques sin sección "data"
+            }
+            $data = $block_data['data'];
+
+            foreach ($data as $field => $value) {
+                $this->save_value($field, $value);
+        }
+    }
+}
+}
+
     
-    private function save_value(string $option_name, $value) {
+  public function save_value(string $option_name, $value) {
         if ($this->context === 'site') {
+            var_dump($option_name, $value); // Debugging
             update_option('_mshf_override' . $option_name, $value);
         } else {
             update_site_option($option_name, $value);

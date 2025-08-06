@@ -10,12 +10,15 @@
 
 // Lógica para determinar a dónde debe apuntar el formulario
 $is_network_admin = is_network_admin();
-$form_action_url = $is_network_admin ? admin_url('edit.php?action=header_update_network_options') : admin_url('admin-post.php');
+$form_action_url =admin_url('admin-post.php');
 ?>
 <div class="wrap">
     <h1><?php echo $is_network_admin ? 'Configuración del Header de Red' : 'Configuración del Header del Sitio'; ?></h1>
     <hr>
     <form method="POST" action="<?php echo esc_url($form_action_url); ?>" enctype="multipart/form-data">
+   <input type="hidden" name="action" value="header_update_network_options">
+
+    
 <div class="column-container">
     <h3>Columna 1</h3>
     <div class="blocks-area" id="blocks-col-1">
@@ -29,6 +32,39 @@ $form_action_url = $is_network_admin ? admin_url('edit.php?action=header_update_
         </select>
         <button type="button" class="button add-block-button" data-column="col-1">Añadir Bloque</button>
     </div>
+</div>
+<div class="column-container">
+    <h3>Columna 2</h3>
+    <div class="blocks-area" id="blocks-col-2">
+        </div>
+    
+    <div class="add-block-controls">
+        <select class="block-type-selector">
+            <option value="title">Título</option>
+            <option value="text">Texto</option>
+            <option value="images">Imágenes</option>
+        </select>
+        <button type="button" class="button add-block-button" data-column="col-2">Añadir Bloque</button>
+    </div>
+
+    <div class="column-container">
+    <h3>Columna 3</h3>
+    <div class="blocks-area" id="blocks-col-3">
+        </div>
+    
+    <div class="add-block-controls">
+        <select class="block-type-selector">
+            <option value="title">Título</option>
+            <option value="text">Texto</option>
+            <option value="images">Imágenes</option>
+        </select>
+        <button type="button" class="button add-block-button" data-column="col-3">Añadir Bloque</button>
+    </div>
+</div>
+
+
+
+
 </div>
 
 <template id="template-title-block">
@@ -47,6 +83,25 @@ $form_action_url = $is_network_admin ? admin_url('edit.php?action=header_update_
         <button type="button" class="remove-block">Eliminar</button>
     </div>
 </template>
+
+
+<template id="template-images-block">
+    <div class="block">
+        <strong>Bloque de Imagen</strong>
+        <div class="general-form-field image-row">
+            <div>
+                <h4 class="filds-titles">Subir imagen</h4>
+                <input type="file" name="header_layout[COLUMN_ID][BLOCK_INDEX][image]">
+            </div>
+            <div>
+                <h4 class="filds-titles">Link asociado a la imagen</h4>
+                <input type="url" name="header_layout[COLUMN_ID][BLOCK_INDEX][link]" placeholder="https://ejemplo.com">
+            </div>
+        </div>
+        <button type="button" class="button remove-block">Eliminar Bloque</button>
+    </div>
+</template>
+
         <?php submit_button(); ?>
     </form>
 </div>

@@ -16,7 +16,7 @@ class multisiteAdmin {
 
         // --- Hooks de Administración de Red ---
         add_action('network_admin_menu', [$this, 'add_multisite_menu_pages']);
-        add_action('network_admin_edit_header_update_network_options', [$this, 'header_update_network_options']);
+        add_action('admin_post_header_update_network_options', [$this, 'header_update_network_options']);
         add_action('network_admin_edit_footer_update_network_options', [$this, 'footer_update_network_options']);
     }
 
