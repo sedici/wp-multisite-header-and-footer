@@ -145,6 +145,7 @@ class Init {
 		wp_localize_script( 'HyF_load_form', 'ajax_var', array(
 			'url'    => admin_url( 'admin-ajax.php' ),
 			'action' => 'load_form',
+			'form_class' => 'wp_multisite_hyf_form', // Id del formulario para identificar cúando recuperar datos del form
 		));
 	}
 	

@@ -15,7 +15,7 @@ $form_action_url =admin_url('admin-post.php');
 <div class="wrap">
     <h1><?php echo $is_network_admin ? 'Configuración del Header de Red' : 'Configuración del Header del Sitio'; ?></h1>
     <hr>
-    <form method="POST" action="<?php echo esc_url($form_action_url); ?>" enctype="multipart/form-data">
+    <form id="wp_multisite_hyf_form" method="POST" action="<?php echo esc_url($form_action_url); ?>" enctype="multipart/form-data">
    <input type="hidden" name="action" value="header_update_network_options">
 
     
