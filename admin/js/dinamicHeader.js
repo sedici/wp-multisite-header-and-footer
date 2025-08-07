@@ -7,12 +7,17 @@ jQuery(document).ready(function($) {
      * LÓGICA PARA AÑADIR NUEVOS BLOQUES
      */
     $('.add-block-button').on('click', function() {
-        // 2. Mensaje para saber si el clic en el botón funciona.
 
         const columnId = $(this).data('column');
         const blockType = $(this).siblings('.block-type-selector').val();
         
-        // 3. Mensaje para ver qué estamos intentando añadir.
+
+        const existingBlock = $('#blocks-' + columnId + ' .block');
+        console.log(existingBlock);
+        if (existingBlock.length > 0) {
+        alert('Ya existe un bloque en esta columna.');
+        return;
+      }
 
         const template = $('#template-' + blockType + '-block');
         if (!template.length) {

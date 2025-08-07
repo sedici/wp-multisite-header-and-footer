@@ -73,9 +73,19 @@ class Init{
 	function reg_admin_styles(){
 
 		$js_url = MM\PLUGIN_NAME_URL.'admin/js/';
+		$js_file = get_template_directory() . '/js/dinamicHeader.js';
 
-		wp_register_script('dinamicHeader', $js_url . 'dinamicHeader.js', array('jquery'),'1.1', true);
-		wp_enqueue_script('dinamicHeader');
+
+		wp_register_script(
+   			'dinamicHeader',
+    		$js_url . 'dinamicHeader.js',
+    		array('jquery'),
+    		file_exists($js_file) ? filemtime($js_file) : '1.1', // versión dinámica si existe
+    		true // cargar en el footer
+);
+
+// Encolar el script
+wp_enqueue_script('dinamicHeader');
 	
 		$css_url = MM\PLUGIN_NAME_URL.'admin/css/administrationStyle.css';
 
