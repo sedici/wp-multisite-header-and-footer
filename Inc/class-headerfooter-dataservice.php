@@ -13,6 +13,11 @@ class HeaderFooter_DataService {
         }
         return get_site_option($option_name);
     }
+
+    public function load_form_data() {
+		wp_send_json_success('¡Solicitud AJAX manejada correctamente!');
+		wp_die();
+	} 
  
     public function save_form_data(array $post_data) {
        if (isset($post_data['header_layout']) && is_array($post_data['header_layout'])) {
