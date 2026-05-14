@@ -1,20 +1,12 @@
 <?php 
 
-namespace Wp_multisite_manager\Core;
-use Wp_multisite_manager as MM;
-use Wp_multisite_manager\Admin as Admin;
-use Wp_multisite_manager\Inc as Inc;
+namespace SediciMultisiteFooter\Core;
+
 
 require_once 'class-loader.php';
 
-require plugin_dir_path( __DIR__ ) . 'Inc/class-My-Template-Loader.php';
-
-
 $dirMultisite = plugin_dir_path( __DIR__ ) . 'admin/multisiteAdmin.php';
 $dirSinglesite = plugin_dir_path( __DIR__ ) . 'admin/singlesiteAdmin.php';
-
-require  $dirSinglesite ;
-require  $dirMultisite ;
 
 
 /**
@@ -30,10 +22,6 @@ class Init{
 	 */
 	protected $plugin_basename;
 
-	protected $multisite_administrator;
-
-	protected $singlesite_administrator;
-	
 	protected $plugin_name;
 	protected $version;
 	protected $plugin_text_domain;
@@ -41,15 +29,7 @@ class Init{
 
 	public function __construct() {
 
-		$this->plugin_name = MM\PLUGIN_NAME;
-		$this->version = MM\PLUGIN_VERSION;
-		$this->plugin_basename = MM\PLUGIN_BASENAME;
-		$this->plugin_text_domain = MM\PLUGIN_TEXT_DOMAIN;
-
 		$this->loader = new Loader();
-
-		$this->multisite_administrator = new admin\multisiteAdmin($this);
-		$this->singlesite_administrator = new admin\singlesiteAdmin($this);
 
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
@@ -63,14 +43,14 @@ class Init{
 
 	function reg_admin_styles(){
 
-		$js_url = MM\PLUGIN_NAME_URL.'admin/js/';
+		$js_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/js/';
 
 		wp_register_script('dinamicHeader', $js_url . 'dinamicHeader.js', array('jquery'),'1.1', true);
  
 		wp_enqueue_script('dinamicHeader');
 	
 
-		$css_url = MM\PLUGIN_NAME_URL.'admin/css/administrationStyle.css';
+		$css_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/css/administrationStyle.css';
 
 		wp_register_style("administrationStyle", $css_url);
 
@@ -79,7 +59,7 @@ class Init{
 
 
 	function insert_modal_js (){ 
-		wp_register_script('identify-modal',  MM\PLUGIN_NAME_URL . 'templates/js/modal-ajax.js', array('jquery'), '1', true );
+		wp_register_script('identify-modal',  SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'templates/js/modal-ajax.js', array('jquery'), '1', true );
 		wp_enqueue_script('identify-modal');	
 		wp_localize_script('identify-modal','imjs_vars',array('url'=>admin_url('admin-ajax.php')));
 	}
@@ -88,16 +68,16 @@ class Init{
 	# Register PUBLIC Styles and Scripts --------------------------------------------------------------------
 	
 	function reg_public_styles() {
-		$js_url = MM\PLUGIN_NAME_URL.'admin/js/';
+		$js_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/js/';
 		
-		$public_css_HYF_url = MM\PLUGIN_NAME_URL.'templates/css/headerAndFooter.css';
+		$public_css_HYF_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'templates/css/headerAndFooter.css';
 
 	
 		wp_register_style("multisite-manager-hyf-css", $public_css_HYF_url);
 
 		wp_enqueue_style("multisite-manager-hyf-css");
 
-		$public_css_GENERAL_url = MM\PLUGIN_NAME_URL.'templates/css/general.css';
+		$public_css_GENERAL_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'templates/css/general.css';
 		wp_register_style("multisite-manager-general-css", $public_css_GENERAL_url);
 
 		wp_enqueue_style("multisite-manager-general-css");
@@ -181,23 +161,16 @@ class Init{
     // Función para registrar los shortcodes
 
 	function dynamic_view_js (){ 
-		wp_register_script('dynamic_addition',  MM\PLUGIN_NAME_URL . 'templates/js/carga-dinamica.js', array('jquery'), '1', true );
+		wp_register_script('dynamic_addition',  SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'templates/js/carga-dinamica.js', array('jquery'), '1', true );
 		wp_enqueue_script('dynamic_addition');	
 	}
 
 	function helpers_js() {
-		wp_register_script('helpers_multisite_js',  MM\PLUGIN_NAME_URL . 'templates/js/helpers.js');
+		wp_register_script('helpers_multisite_js',  SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'templates/js/helpers.js');
 		wp_enqueue_script('helpers_multisite_js');
 	}
 
 	
-
-
-
-
-
-
-
 
 	function get_image_url($post_id) {
 

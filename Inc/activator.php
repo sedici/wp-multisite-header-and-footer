@@ -1,6 +1,6 @@
 <?php
 
-namespace Wp_multisite_manager\Inc;
+namespace SediciMultisiteFooter\Inc;
 
 /**
  * Acciones luego de desactivar el plugin
