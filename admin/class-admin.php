@@ -7,7 +7,8 @@ class Admin {
     public function __construct() {
         add_action('network_admin_menu',array($this,'add_plugin_admin_menu'),30); 
         add_action( 'admin_init', array($this,'footer_settings'), 30 );
-        add_action('network_admin_edit_footer_update_network_options',array($this,'footer_update_network_options'));        
+        add_action('network_admin_edit_footer_update_network_options',array($this,'footer_update_network_options'));
+        add_action('admin_enqueue_scripts',array($this,'reg_admin_styles'),30);       
     }
 
 
