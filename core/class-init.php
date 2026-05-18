@@ -44,8 +44,6 @@ class Init {
 	}
 
 	public function define_public_hooks() {
-		add_action( 'plugins_loaded', 'load_plugin_textdomain' );
-		add_filter('script_loader_tag', array($this,'add_type_attribute') , 10, 3);
 		add_action('wp_enqueue_scripts',array($this,'reg_public_styles'),30);
 
 	}
