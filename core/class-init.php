@@ -29,56 +29,29 @@ class Init {
 		if ( is_admin() ) {
             $admin = new Admin();
         }
+		else {
+			$this->define_public_hooks();
+
+		}
 		
 		$this->loader = new Loader();
-		$this->define_public_hooks();
-		
-	}
-
-	public function run() {
 		$this->loader->run();
-	} 
-
-	
-	# Register PUBLIC Styles and Scripts --------------------------------------------------------------------
-	
-	function reg_public_styles() {
-		$js_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/js/';
 		
-		$public_css_HYF_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'templates/css/headerAndFooter.css';
-
-	
-		wp_register_style("multisite-manager-hyf-css", $public_css_HYF_url);
-
-		wp_enqueue_style("multisite-manager-hyf-css");
-
-		$public_css_GENERAL_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'templates/css/general.css';
-		wp_register_style("multisite-manager-general-css", $public_css_GENERAL_url);
-
-		wp_enqueue_style("multisite-manager-general-css");
-
+		
 	}
 
-	# End of Styles and Scripts register --------------------------------------------------------------------
-
-	function add_type_attribute($tag, $handle, $src) {
-		// if not your script, do nothing and return original $tag
-		if ( 'carrousel' !== $handle ) {
-			return $tag;
-		}
-		// change the script tag by adding type="module" and return it.
-		$tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
-		return $tag;
-	}
-
-
-    private function define_public_hooks() {
+	public function define_public_hooks() {
 		add_action( 'plugins_loaded', 'load_plugin_textdomain' );
-
 		add_filter('script_loader_tag', array($this,'add_type_attribute') , 10, 3);
-
 		add_action('wp_enqueue_scripts',array($this,'reg_public_styles'),30);
 
+	}
+
+	public function reg_public_styles() {
+		$public_css_HYF_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'templates/css/headerAndFooter.css';
+		$public_css_GENERAL_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'public/css/sedici-global-footer-public.css';
+		wp_register_style("multisite-manager-general-css", $public_css_GENERAL_url);
+		wp_enqueue_style("multisite-manager-general-css");
 	}
 
 
