@@ -34,11 +34,6 @@ class Admin {
 
     public function reg_admin_styles(){
 
-		$js_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/js/';
-		wp_register_script('dinamicHeader', $js_url . 'dinamicHeader.js', array('jquery'),'1.1', true);
-		wp_enqueue_script('dinamicHeader');
-	
-
 		$css_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/css/administrationStyle.css';
 		wp_register_style("administrationStyle", $css_url);
 		wp_enqueue_style("administrationStyle");

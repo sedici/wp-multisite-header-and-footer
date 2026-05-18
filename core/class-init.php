@@ -81,12 +81,6 @@ class Init {
 
 	}
 
-	function helpers_js() {
-		wp_register_script('helpers_multisite_js',  SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'templates/js/helpers.js');
-		wp_enqueue_script('helpers_multisite_js');
-	}
-
-	
 
 	function get_image_url($post_id) {
 
