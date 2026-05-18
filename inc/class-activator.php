@@ -12,7 +12,9 @@ class Activator {
 	 *
 	 */
 	public static function activate() {
-
+		if ( is_multisite() ) {
+            
+        }
 	}
 
 }
