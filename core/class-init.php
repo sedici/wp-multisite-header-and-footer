@@ -35,9 +35,12 @@ class Init {
 		}
 		
 		$this->loader = new Loader();
+		
+		
+	}
+	
+	public function run() {
 		$this->loader->run();
-		
-		
 	}
 
 	public function define_public_hooks() {
