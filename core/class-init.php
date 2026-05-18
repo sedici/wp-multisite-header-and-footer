@@ -33,8 +33,6 @@ class Init {
 		$this->loader = new Loader();
 		$this->define_public_hooks();
 		
-
-		
 	}
 
 	public function run() {

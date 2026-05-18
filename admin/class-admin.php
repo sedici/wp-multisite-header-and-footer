@@ -27,6 +27,11 @@ class Admin {
     
     }
 
+    public function render_form_multisite_footer()
+    {
+        include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-form.php';
+    }
+
     public function reg_admin_styles(){
 
 		$js_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/js/';
@@ -184,10 +189,7 @@ class Admin {
         
     }
 
-	public function render_form_multisite_footer()
-    {
-        include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-form.php';
-    }
+	
 
 }
 ?>
