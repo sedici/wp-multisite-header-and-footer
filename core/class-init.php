@@ -28,7 +28,6 @@ class Init {
 
 		if ( is_admin() ) {
             $admin = new Admin();
-            $this->define_admin_hooks();
         }
 		
 		$this->loader = new Loader();
@@ -41,31 +40,6 @@ class Init {
 	public function run() {
 		$this->loader->run();
 	} 
-
-	# Register ADMIN Styles and Scripts --------------------------------------------------------------------
-
-	function reg_admin_styles(){
-
-		$js_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/js/';
-
-		wp_register_script('dinamicHeader', $js_url . 'dinamicHeader.js', array('jquery'),'1.1', true);
- 
-		wp_enqueue_script('dinamicHeader');
-	
-
-		$css_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/css/administrationStyle.css';
-
-		wp_register_style("administrationStyle", $css_url);
-
-		wp_enqueue_style("administrationStyle");
-	}
-
-
-	function insert_modal_js (){ 
-		wp_register_script('identify-modal',  SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'templates/js/modal-ajax.js', array('jquery'), '1', true );
-		wp_enqueue_script('identify-modal');	
-		wp_localize_script('identify-modal','imjs_vars',array('url'=>admin_url('admin-ajax.php')));
-	}
 
 	
 	# Register PUBLIC Styles and Scripts --------------------------------------------------------------------
@@ -99,57 +73,6 @@ class Init {
 		return $tag;
 	}
 
-	# Register ADMIN Hooks --------------------------------------------------------------------
-
-	/*
-	* Esta función define los Hooks de ADMIN para SINGLE SITE
-	*
-	*/
-
-
-	private function define_admin_hooks() {
-
-
-		// Solo debemos registrar el CPT de sitios si es el sitio principal
-
-		if(is_main_site()){
-
-		
-	
-			/* wp_enqueue_scripts es el hook usado para encolar el script insertar_modal_js
-			que sera usado en el frontend */
-		
-
-			/* wp_enqueue_scripts es el hook usado para encolar el script carga-dinamica.js
-			que sera usado en el frontend */
-			add_action('wp_enqueue_scripts',array($this,'dynamic_view_js'));
-
-			/* Hook usado para encolar scripts helpers */
-			add_action('wp_enqueue_scripts',array($this,'helpers_js'));
-
-
-			add_action('wp_ajax_load_more',array($this,'load_more')  );
-			add_action( 'wp_ajax_nopriv_load_More', array($this,'load_more') );
-
-		}
-
-
-		if ( ! defined('ABSPATH') ) {
-			/** Set up WordPress environment */
-			require_once( dirname( __FILE__ ) . '/wp-load.php' );
-		}
-	
-		// Register Scripts and Styles
-		
-
-		add_action('admin_enqueue_scripts',array($this,'reg_admin_styles'),30);
-
-	}
-
-	function load_plugin_textdomain() {
-		load_plugin_textdomain( 'wp-multisite-manager', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
-	  }
-
 
     private function define_public_hooks() {
 		add_action( 'plugins_loaded', 'load_plugin_textdomain' );
@@ -158,14 +81,6 @@ class Init {
 
 		add_action('wp_enqueue_scripts',array($this,'reg_public_styles'),30);
 
-	}
-
-
-    // Función para registrar los shortcodes
-
-	function dynamic_view_js (){ 
-		wp_register_script('dynamic_addition',  SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'templates/js/carga-dinamica.js', array('jquery'), '1', true );
-		wp_enqueue_script('dynamic_addition');	
 	}
 
 	function helpers_js() {
