@@ -20,6 +20,7 @@ if ((! defined( 'WPINC' ) ) or (! is_multisite())) die;
 
  define( 'SEDICI_MULTISITE_FOOTER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
+ require_once SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'Inc/class-autoloader.php';
  require_once 'Inc/activator.php';
  require_once 'Inc/deactivator.php';
  require_once 'core/class-init.php';

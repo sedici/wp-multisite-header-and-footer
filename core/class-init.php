@@ -1,18 +1,15 @@
 <?php 
 
 namespace SediciMultisiteFooter\Core;
-
+use SediciMultisiteFooter\Admin\Admin;
 
 require_once 'class-loader.php';
-
-$dirMultisite = plugin_dir_path( __DIR__ ) . 'admin/multisiteAdmin.php';
-$dirSinglesite = plugin_dir_path( __DIR__ ) . 'admin/singlesiteAdmin.php';
 
 
 /**
  * Clase para administrar los hooks y encolar los estilos / scripts
  */
-class Init{
+class Init {
     /**
 	 * @var      Loader    $loader    es el encargado de mantener y administar los hooks.
 	 */
@@ -29,10 +26,16 @@ class Init{
 
 	public function __construct() {
 
+		if ( is_admin() ) {
+            $admin = new Admin();
+            $this->define_admin_hooks();
+        }
+		
 		$this->loader = new Loader();
-
-		$this->define_admin_hooks();
 		$this->define_public_hooks();
+		
+
+		
 	}
 
 	public function run() {

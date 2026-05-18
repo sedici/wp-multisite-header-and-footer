@@ -1,71 +1,30 @@
 <?php
-namespace Wp_multisite_manager\Admin;
-
-use Sites_table;
-use Wp_multisite_manager as MM;
+namespace SediciMultisiteFooter\Admin;
 
 
-
-class multisiteAdmin{
-    private $plugin_name;
-    private $version;
-    private $plugin_basename;
-    private $plugin_text_domain;
-    private $sites_table;
-    private $cpt_list_table;
+class Admin {
 
     public function __construct() {
-
-        $this->plugin_name = MM\PLUGIN_NAME;
-		$this->version = MM\PLUGIN_VERSION;
-		$this->plugin_basename = MM\PLUGIN_BASENAME;
-		$this->plugin_text_domain = MM\PLUGIN_TEXT_DOMAIN;
-      
-        #  Esta función sirve para saber si se realizo algún POST de un formulario
-        #  add_action('template_redirect', 'check_for_event_submissions');
-      
-        add_action('network_admin_menu',array($this,'add_Multisite_Menu_Pages'),30); 
-
-        add_action( 'admin_init', array($this,'header_settings'), 30 );
+        add_action('network_admin_menu',array($this,'add_plugin_admin_menu'),30); 
         add_action( 'admin_init', array($this,'footer_settings'), 30 );
-
-        // Registro las settings para formularios de HEADER Y FOOTER
-        add_action('network_admin_edit_header_update_network_options',array($this,'header_update_network_options'));
         add_action('network_admin_edit_footer_update_network_options',array($this,'footer_update_network_options'));        
-
     }
 
 
-  
-
-
-
-    
-
-
     /**
-     * Registra toda la configuración del header con la API de Settings de Wordpress
-     *      
-    */
-    function header_settings() {
-        register_setting( 'header_settings', 'enabled' );
-        register_setting( 'header_settings', 'title_text' );
-        register_setting( 'header_settings', 'title_link' );
-        register_setting( 'header_settings', 'header_text' );
+     * Agrega el submenú bajo la pestaña "Sitios"
+     */
+    public function add_plugin_admin_menu() {
 
-        register_setting( 'header_settings', 'header_css');
-      
-        register_setting( 'header_settings', 'header_images');
-        /*  Header Settings => Array de imagenes con la siguiente estructura:
-            [[0] {
-                    "id" => id_De_Media_Upload,
-                    "link" => link
-                },
-             [1] {
-                    "id" => id_De_Media_Upload,
-                    "link" => link
-            }
-            ] */
+        add_submenu_page(
+            'sites.php',                  
+            'Configuración Global Footer', 
+            'Configuración Footer Global',               
+            'manage_network_options',      
+            'sedici-global-footer',      
+            [ $this, 'render_form_multisite_footer' ]
+        );
+    
     }
 
     /**
@@ -85,36 +44,12 @@ class multisiteAdmin{
         register_setting( 'footer_settings', 'footer_email' );
         register_setting( 'footer_settings', 'footer_phone' );
 
-
         register_setting( 'footer_settings', 'footer_images');
 
         register_setting( 'footer_settings', 'footer_css' );
 
     }
 
-
-    function header_update_network_options(){
-        #check_admin_referer('config-header-options');
-       // $this->process_header_images();
-       
-        global $new_allowed_options;
-        $options = $new_allowed_options['header_settings'];
-        
-        foreach ($options as $option) {
-            if($option == "header_images"){
-                $this->process_images($option);
-            }
-            else if (isset($_POST[$option])) {
-                    update_site_option($option, $_POST[$option]);
-            } else {
-                delete_site_option($option);
-            }
-        }
-        
-        wp_redirect(add_query_arg(array('page' => 'config-header',
-        'updated' => 'true'), network_admin_url('admin.php')));
-        exit;
-    }
 
     /**
      * Itera sobre $_FILES buscando todas las imágenes que se hayan subido, y busca el link para cada una.
@@ -210,49 +145,6 @@ class multisiteAdmin{
         'updated' => 'true'), network_admin_url('admin.php')));
         exit;
     }
-    
-        
-
-    # Register all the MULTISITE Menu pages --------------------------------------------------------------
-
-    public function add_Multisite_Menu_Pages() {
-
-        // 1. Crear el menú padre que apunta directamente al primer hijo (Administrar Header)
-        add_menu_page(
-            __('Multisite Header and Footer', $this->plugin_text_domain), 
-            __('Multisite Header and Footer', $this->plugin_text_domain), 
-            'manage_options',
-            'config-header',
-            array($this, 'header_menu_page'), 
-            'dashicons-admin-generic', 
-            6
-        );
-    
-        // 2. Submenú: Administrar Header
-        add_submenu_page(
-            'config-header', // Slug del menú padrE
-            __('Administrar Header', $this->plugin_text_domain), // Título de la página Header
-            __('Administrar Header', $this->plugin_text_domain), // Texto del submenú
-            'manage_options', // Capacidad requerida
-            'config-header', // Slug (mismo que el padre)
-            array($this, 'header_menu_page') // Función de callback
-        );
-    
-        // 3. Submenú: Administrar Footer
-        add_submenu_page(
-            'config-header', // Slug del menú padre
-            __('Administrar Footer', $this->plugin_text_domain), // Título de la página Footer
-            __('Administrar Footer', $this->plugin_text_domain), // Texto del submenú
-            'manage_options', // Capacidad requerida
-            'config-footer', // Slug
-            array($this, 'footer_menu_page') // Función de callback
-        );
-    
-    }
-	
-
-
-
 
     /**
      * Imprime las imágenes que se encuentran cargadas, ya sea en Header o en Footer
@@ -280,13 +172,7 @@ class multisiteAdmin{
         
     }
 
-	public function header_menu_page()
-    {
-        include_once dirname(__DIR__) . '/admin/views/adminMenu/header-form.php';
-    }
-
-
-	public function footer_menu_page()
+	public function render_form_multisite_footer()
     {
         include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-form.php';
     }
