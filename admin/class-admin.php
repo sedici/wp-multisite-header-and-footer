@@ -8,7 +8,16 @@ class Admin {
         add_action('network_admin_menu',array($this,'add_plugin_admin_menu'),30); 
         add_action( 'admin_init', array($this,'footer_settings'), 30 );
         add_action('network_admin_edit_footer_update_network_options',array($this,'footer_update_network_options'));
-        add_action('admin_enqueue_scripts',array($this,'reg_admin_styles'),30);       
+        add_action('admin_enqueue_scripts',array($this,'reg_admin_styles'),30);
+        
+        // Registro hook para procesar el form de estado del footer
+        add_action( 'admin_post_sedici_footer_save_status', [ $this, 'save_footer_status' ] );
+
+        // Registro hook para procesar el form de seleccion de footer
+        add_action( 'admin_post_sedici_footer_selection', [ $this, 'save_footer_choice' ] );
+
+        // Registro hook para renderizar el footer en el frontend
+        add_action( 'wp_footer', [ $this, 'render_global_footer' ] );
     }
 
 
@@ -29,8 +38,78 @@ class Admin {
     }
 
     public function render_form_multisite_footer()
-    {
-        include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-form.php';
+    {   
+
+        if ( ! is_super_admin() ) {
+            wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
+        }
+
+        else {
+            $footer_status = $this->footer_is_enabled();
+            if( $this->footer_is_enabled() )     
+                include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-form.php';
+            else 
+                include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-form-manager.php'; 
+        }
+    }
+
+    public function enable_network_footer() {
+        update_network_option(get_current_network_id(), 'sedici_footer_network_status', 1);
+    }
+
+    public function disable_network_footer() {
+        update_network_option(get_current_network_id(), 'sedici_footer_network_status', 0);
+    }
+
+    public function enable_individual_site_footer() {
+        update_option('sedici_footer_status', 1);
+    }
+
+    public function disable_individual_site_footer() {
+        update_option('sedici_footer_status', 0);
+    }
+
+    public function save_footer_status() {
+
+        if ( ! is_super_admin() ) {
+            wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
+        }
+
+        if ( is_multisite() ) {
+            if ( isset( $_POST['input_sedici_footer_status'] ) && $_POST['input_sedici_footer_status'] == '1' ) {
+                $this->enable_network_footer();
+            } else {
+                $this->disable_network_footer();
+            }
+        } else {
+            if ( isset( $_POST['input_sedici_footer_status'] ) && $_POST['input_sedici_footer_status'] == '1' ) {
+                $this->enable_individual_site_footer();
+            } else {
+                $this->disable_individual_site_footer();
+            }
+        }
+
+        wp_redirect(wp_get_referer());
+        exit;
+    }
+
+    public function footer_is_enabled(){
+        if( is_multisite() )
+            return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
+        else 
+            return get_option('sedici_footer_status') == 1;
+    }
+
+
+    public function render_footer() {
+        $is_enabled = get_option( 'sedici_footer_status', 0 );
+
+        if ( ! $is_enabled ) {
+            return;
+        }
+
+        include_once dirname(__DIR__);
+
     }
 
     public function reg_admin_styles(){
