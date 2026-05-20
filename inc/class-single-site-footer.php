@@ -2,7 +2,7 @@
 
 namespace SediciMultisiteFooter\Inc;
 
-class Single_Site_Footer implements Footer_Interface {
+class Single_Site_Footer extends Footer_Interface {
     
     public function is_enabled() {
         return get_option('sedici_footer_status') == 1;

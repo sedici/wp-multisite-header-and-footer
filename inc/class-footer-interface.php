@@ -2,11 +2,11 @@
 
 namespace SediciMultisiteFooter\Inc;
 
-interface Footer_Interface {
-    public function is_enabled();
-    public function disable_footer();
-    public function enable_footer();
-    public function render_footer();
+abstract class Footer_Interface {
+    public abstract function is_enabled();
+    public abstract function disable_footer();
+    public abstract function enable_footer();
+    public abstract function render_footer();
 }
 
 ?>
