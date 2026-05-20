@@ -2,7 +2,7 @@
 
 namespace SediciMultisiteFooter\Inc;
 
-interface FooterInterface {
+interface Footer_Interface {
     public function is_enabled();
     public function disable_footer();
     public function enable_footer();

@@ -1,10 +1,16 @@
 <?php
 namespace SediciMultisiteFooter\Admin;
+use SediciMultisiteFooter\Inc\Footer_Factory;
 
 
 class Admin {
 
+    private $footer;
+
     public function __construct() {
+
+        $this->footer = Footer_Factory::create();
+
         add_action('network_admin_menu',array($this,'add_plugin_admin_menu'),30); 
         add_action('admin_enqueue_scripts',array($this,'reg_admin_styles'),30);
         
@@ -43,8 +49,8 @@ class Admin {
         }
 
         else {
-            $footer_status = $this->footer_is_enabled();
-            if( $this->footer_is_enabled() )     
+            $footer_status = $this->footer->is_enabled();
+            if( $this->footer->is_enabled() )   
                 include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-form.php';
             else 
                 include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-form-manager.php'; 
@@ -58,18 +64,10 @@ class Admin {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
-        if ( is_multisite() ) {
-            if ( isset( $_POST['input_sedici_footer_status'] ) && $_POST['input_sedici_footer_status'] == '1' ) {
-                $this->enable_network_footer();
-            } else {
-                $this->disable_network_footer();
-            }
+        if ( isset( $_POST['input_sedici_footer_status'] ) && $_POST['input_sedici_footer_status'] == '1' ) {
+            $this->footer->enable_footer();
         } else {
-            if ( isset( $_POST['input_sedici_footer_status'] ) && $_POST['input_sedici_footer_status'] == '1' ) {
-                $this->enable_individual_site_footer();
-            } else {
-                $this->disable_individual_site_footer();
-            }
+            $this->footer->disable_footer();
         }
 
         $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
@@ -79,13 +77,6 @@ class Admin {
 
 
     public function render_footer() {
-        $is_enabled = get_option( 'sedici_footer_status', 0 );
-
-        if ( ! $is_enabled ) {
-            return;
-        }
-
-        include_once dirname(__DIR__);
 
     }
 
