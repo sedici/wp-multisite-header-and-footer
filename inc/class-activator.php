@@ -14,13 +14,13 @@ class Activator {
 	public static function activate() {
 
 		if ( is_multisite() ) {
-            add_network_option(get_current_network_id(),'sedici_global_footer_network_status', 0);
+            add_network_option(get_current_network_id(),'sedici_footer_network_status', 0);
 			self::run_on_all_sites( function() {
-				add_option('sedici_global_footer_status', 0);
+				add_option('sedici_footer_status', 0);
 			});
         }
 		else {
-			add_option('sedici_global_footer_status', 0);
+			add_option('sedici_footer_status', 0);
 		}
 	}
 

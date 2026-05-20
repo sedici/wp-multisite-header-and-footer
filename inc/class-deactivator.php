@@ -14,13 +14,13 @@ class Deactivator {
 	public static function deactivate() {
 
 		if ( is_multisite() ) {
-            delete_network_option(get_current_network_id(),'sedici_global_footer_network_status', 0);
+            delete_network_option(get_current_network_id(),'sedici_footer_network_status', 0);
 			self::run_on_all_sites( function() {
-				delete_option('sedici_global_footer_status');
+				delete_option('sedici_footer_status');
 			});
         }
 		else {
-			delete_option('sedici_global_footer_status');
+			delete_option('sedici_footer_status');
 		}
 	
 	}
