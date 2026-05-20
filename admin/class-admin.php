@@ -53,21 +53,6 @@ class Admin {
         }
     }
 
-    public function enable_network_footer() {
-        update_network_option(get_current_network_id(), 'sedici_footer_network_status', 1);
-    }
-
-    public function disable_network_footer() {
-        update_network_option(get_current_network_id(), 'sedici_footer_network_status', 0);
-    }
-
-    public function enable_individual_site_footer() {
-        update_option('sedici_footer_status', 1);
-    }
-
-    public function disable_individual_site_footer() {
-        update_option('sedici_footer_status', 0);
-    }
 
     public function save_footer_status() {
 
@@ -94,13 +79,6 @@ class Admin {
         exit;
     }
 
-    public function footer_is_enabled(){
-        if( is_multisite() )
-            return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
-        else 
-            return get_option('sedici_footer_status') == 1;
-    }
-
 
     public function render_footer() {
         $is_enabled = get_option( 'sedici_footer_status', 0 );
@@ -119,29 +97,6 @@ class Admin {
 		wp_register_style("administrationStyle", $css_url);
 		wp_enqueue_style("administrationStyle");
 	}
-
-    /**
-     * Registra toda la configuración del footer con la API de Settings de Wordpress
-     *      
-    */
-    function footer_settings() {
-        register_setting( 'footer_settings', 'footer_enabled' );
-        
-        register_setting( 'footer_settings', 'footer_fb' );
-        register_setting( 'footer_settings', 'footer_tw' );
-        register_setting( 'footer_settings', 'footer_ig' );
-        
-        register_setting( 'footer_settings', 'footer_text' );
-        register_setting( 'footer_settings', 'footer_text_link' );
-
-        register_setting( 'footer_settings', 'footer_email' );
-        register_setting( 'footer_settings', 'footer_phone' );
-
-        register_setting( 'footer_settings', 'footer_images');
-
-        register_setting( 'footer_settings', 'footer_css' );
-
-    }
 
 
     /**
