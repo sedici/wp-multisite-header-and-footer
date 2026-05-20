@@ -89,7 +89,8 @@ class Admin {
             }
         }
 
-        wp_redirect(wp_get_referer());
+        $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
+        wp_redirect($url_dest);
         exit;
     }
 

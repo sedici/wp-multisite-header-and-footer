@@ -8,7 +8,8 @@
                     <th scope="row">Visibilidad</th>
                     <td>
                         <label for="footer_status">
-                            <input name="sedici_footer_status" type="checkbox" id="footer_status" value="1" <?php checked($footer_status, 1); ?>>
+                            <input name="input_sedici_footer_status" type="checkbox" id="footer_status" value="1" <?php checked($footer_status, 1); ?>>
+                            <input type="hidden" name="action" value="sedici_footer_save_status">
                             Habilitar el Footer Global en este sitio
                         </label>
                         <p class="description">Al activar esta opción, todos los sitios del multisitio heredarán el diseño global del footer establecido por la red.</p>
