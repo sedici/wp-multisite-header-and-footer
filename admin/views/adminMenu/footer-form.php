@@ -1,25 +1,74 @@
+<?php 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; 
+} 
+?>
 <div class="wrap">
-    <form method="post" action="">
-    <div style="margin-bottom: 15px;">
-        <label for="mi_desplegable" style="display: block; margin-bottom: 5px; font-weight: bold;">
-            Selecciona una opción:
-        </label>
-        <select name="sedici_gf_layout_simple" id="mi_desplegable" style="padding: 5px; width: 250px;">
-            <option value="opcion_1">Opción 1 (Estándar)</option>
-            <option value="opcion_2">Opción 2 (Centrado)</option>
-            <option value="opcion_3">Opción 3 (Bloques)</option>
-        </select>
-    </div>
 
-    <div style="margin-bottom: 20px;">
-        <label for="mi_color" style="display: block; margin-bottom: 5px; font-weight: bold;">
-            Selecciona un color de fondo:
-        </label>
-        <input type="color" name="sedici_gf_color_picker" id="mi_color" value="#0A1128" style="width: 60px; height: 35px; padding: 0; border: 1px solid #ccc; cursor: pointer;">
-    </div>
+    <h1>Configuración del Footer Global</h1>
+    
+    <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+        <input type="hidden" name="action" value="sedici_footer_save_status">
+        
+        <div style="margin-top: 20px; background: #fff; padding: 20px; border: 1px solid #ccd0d4; border-radius: 4px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
+            <h2 style="margin-top: 0; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">Visibilidad</h2>
+            
+            <div style="margin-bottom: 15px;">
+                <label for="footer_status">
+                    <input name="input_sedici_footer_status" type="checkbox" id="footer_status" value="1" <?php checked($args['footer_status'], 1); ?>>
+                    <strong>Habilitar el Footer Global</strong>
+                </label>
+                <p class="description" style="margin-top: 8px; margin-left: 24px;">Al activar esta opción, todos los sitios del multisitio heredarán el diseño global del footer establecido por la red.</p>
+            </div>
+            
+            <p class="submit" style="margin: 0; padding: 0;">
+                <input type="submit" name="submit_status" id="submit_status" class="button button-primary" value="Guardar estado">
+            </p>
+        </div>
+    </form>
 
-    <div>
-        <input type="submit" name="submit_simple_form" value="Guardar configuración" style="padding: 6px 12px; background-color: #007cba; color: white; border: none; border-radius: 3px; cursor: pointer;">
-    </div>
-</form>
+
+    <?php if ( $args['footer_status'] === 1 ) : ?>
+        
+        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+            <input type="hidden" name="action" value="sedici_footer_selection">
+
+            <div style="margin-top: 20px; background: #fff; padding: 20px; border: 1px solid #ccd0d4; border-radius: 4px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
+                <h2 style="margin-top: 0; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">Diseño y Color</h2>
+
+                <div style="margin-bottom: 20px;">
+                    <label for="mi_desplegable" style="display: block; font-weight: 600; margin-bottom: 8px;">
+                        Selecciona una opción:
+                    </label>
+                    <select name="sedici_gf_layout_simple" id="mi_desplegable" class="regular-text">
+                        <?php 
+                        if ( ! empty( $args['form_options'] ) && is_array( $args['form_options'] ) ) {
+                            foreach ( $args['form_options'] as $opcion ) {
+                                
+                                $nombre_opcion = ucwords( str_replace( '-', ' ', $opcion ) );
+                                
+                                echo '<option value="' . esc_attr( $opcion ) . '">' . esc_html( $nombre_opcion ) . '</option>';
+                            }
+                        } else {
+                            echo '<option value="">No hay variantes disponibles</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label for="mi_color" style="display: block; font-weight: 600; margin-bottom: 8px;">
+                        Selecciona un color de fondo:
+                    </label>
+                    <input type="color" name="sedici_gf_color_picker" id="mi_color" value="#0A1128" style="width: 60px; height: 35px; padding: 0; cursor: pointer; border: 1px solid #ccc; border-radius: 3px;">
+                </div>
+
+                <p class="submit" style="margin: 0; padding: 0;">
+                    <input type="submit" name="submit_simple_form" class="button button-primary" value="Guardar configuración">
+                </p>
+            </div>
+        </form>
+
+    <?php endif; ?>
+
 </div>
