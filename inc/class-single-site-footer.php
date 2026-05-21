@@ -15,14 +15,6 @@ class Single_Site_Footer extends Footer_Interface {
     public function enable_footer() {
         update_option('sedici_footer_status', 1);
     }
-
-    public function render_footer() {
-        if ( ! $this->is_enabled() ) {
-            return;
-        }
-
-        include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-content.php';
-    }
 }
 
 

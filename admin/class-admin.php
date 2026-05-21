@@ -20,8 +20,6 @@ class Admin {
         // Registro hook para procesar el form de seleccion de footer
         add_action( 'admin_post_sedici_footer_selection', [ $this, 'save_footer_choice' ] );
 
-        // Registro hook para renderizar el footer en el frontend
-        add_action( 'wp_footer', [ $this, 'render_global_footer' ] );
     }
 
 
@@ -75,10 +73,6 @@ class Admin {
         exit;
     }
 
-
-    public function render_footer() {
-
-    }
 
     public function reg_admin_styles(){
 

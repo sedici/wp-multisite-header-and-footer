@@ -15,14 +15,6 @@ class Network_Footer extends Footer_Interface {
     public function enable_footer() {
         update_network_option(get_current_network_id(), 'sedici_footer_network_status', 1);
     }
-
-    public function render_footer() {
-        if ( ! $this->is_enabled() ) {
-            return;
-        }
-
-        include_once dirname(__DIR__) . '/admin/views/adminMenu/footer-content.php';
-    }
 }
 
 
