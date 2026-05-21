@@ -49,7 +49,7 @@ class Admin {
         else {
             $footer_status = $this->footer->is_enabled() ? 1 : 0;
             $form_options = Footer_Data_Provider::get_options();
-            $ruta_form = dirname(__DIR__) . '/admin/views/adminMenu/footer-form.php';
+            $ruta_form = dirname(__DIR__) . '/admin/views/footer-form.php';
             load_template( $ruta_form, false, ['form_options' => $form_options, 'footer_status' => $footer_status ] );
         }
                 
