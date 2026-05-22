@@ -9,18 +9,23 @@ namespace SediciMultisiteFooter\Inc;
 class Deactivator {
 
 	/**
-	 *
+	 *  Acciones a ejecutar luego de desactivar el plugin
+     * Elimina las opciones seteadas al activar el plugin
+     * @return void
 	 */
 	public static function deactivate() {
 
 		if ( is_multisite() ) {
-            delete_network_option(get_current_network_id(),'sedici_footer_network_status', 0);
+            delete_network_option(get_current_network_id(),'sedici_footer_network_status');
+            delete_network_option(get_current_network_id(),'sedici_footer_network_type');
 			self::run_on_all_sites( function() {
 				delete_option('sedici_footer_status');
+                delete_option('sedici_footer_type');
 			});
         }
 		else {
 			delete_option('sedici_footer_status');
+            delete_option('sedici_footer_type');
 		}
 	
 	}

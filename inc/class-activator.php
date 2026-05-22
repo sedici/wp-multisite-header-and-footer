@@ -8,19 +8,25 @@ namespace SediciMultisiteFooter\Inc;
 
 class Activator {
 
-	/**
-	 *
+	/** 
+	 * Acciones a ejecutar luego de activar el plugin
+     * Incluye 2 options : uno para conocer el estado del footer y otro para obtener el tipo de footer seteado
+     * @return void
+     * 
 	 */
 	public static function activate() {
 
 		if ( is_multisite() ) {
             add_network_option(get_current_network_id(),'sedici_footer_network_status', 0);
+            add_network_option(get_current_network_id(),'sedici_footer_network_type', 'prebi-sedici');
 			self::run_on_all_sites( function() {
 				add_option('sedici_footer_status', 0);
+                add_option('sedici_footer_type', 'heredado');
 			});
         }
 		else {
 			add_option('sedici_footer_status', 0);
+            add_option('sedici_footer_type', 'prebi-sedici');
 		}
 	}
 
