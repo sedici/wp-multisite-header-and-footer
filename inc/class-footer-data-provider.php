@@ -42,6 +42,7 @@ class Footer_Data_Provider {
 
     public static function get_options() {
         return [
+            'heredado',
             'prebi-sedici',
             'cesgi',
             'prebi-cesgi'

@@ -15,6 +15,9 @@ abstract class Footer_Interface {
     public abstract function disable_footer();
     public abstract function enable_footer();
 
+    public abstract function get_footer_type();
+    public abstract function set_footer_type($type);
+
     public function render_footer() {
         if ( ! $this->is_enabled() ) {
             return;
