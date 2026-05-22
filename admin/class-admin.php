@@ -1,7 +1,7 @@
 <?php
 namespace SediciMultisiteFooter\Admin;
-use SediciMultisiteFooter\Inc\Footer_Factory;
-use SediciMultisiteFooter\Inc\Footer_Data_Provider;
+use SediciMultisiteFooter\Inc\Footer\Footer_Factory;
+use SediciMultisiteFooter\Inc\Footer\Footer_Data_Provider;
 
 class Admin {
 
@@ -78,6 +78,8 @@ class Admin {
         if ( ! is_super_admin() ) {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
+
+
 
         
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace SediciMultisiteFooter\Inc;
+namespace SediciMultisiteFooter\Inc\Footer;
 
 class Network_Footer extends Footer_Interface {
     

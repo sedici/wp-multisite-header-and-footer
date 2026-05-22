@@ -1,7 +1,7 @@
 <?php
 
-namespace SediciMultisiteFooter\Inc;
-use SediciMultisiteFooter\Inc\Footer_Data_Provider;
+namespace SediciMultisiteFooter\Inc\Footer;
+use SediciMultisiteFooter\Inc\Footer\Footer_Data_Provider;
 
 abstract class Footer_Interface {
 
