@@ -9,14 +9,6 @@ use SediciMultisiteFooter\Inc\Manager_Interface;
 *   Implementa la interfaz Footer_Interface. CAMBIAR NOMBRE DE LA CLASE
 */
 class Single_Site_Manager extends Manager_Interface {
-    
-    public function register_options_in_database() {
-
-    }
-
-    public function delete_options_from_database() {
-
-    }
 
     public function is_footer_enabled() {
         return get_option('sedici_footer_status') == 1;
@@ -44,7 +36,7 @@ class Single_Site_Manager extends Manager_Interface {
         update_option('sedici_footer_type', $type);
     }
 
-    public function save_footer_choice() {
+    public function save_footer_type_choice() {
         
     }
 }

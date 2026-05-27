@@ -9,14 +9,6 @@ use SediciMultisiteFooter\Inc\Manager_Interface;
 *   Implementa la interfaz Footer_Interface
 */
 class Network_Manager extends Manager_Interface {
-    
-    public function register_options_in_database() {
-
-    }
-
-    public function delete_options_from_database() {
-
-    }
 
     /*
     *   Obtiene el tipo de footer seteado a nivel de red.
@@ -58,7 +50,7 @@ class Network_Manager extends Manager_Interface {
         update_option('sedici_footer_type', $type);
     }
 
-    public function save_footer_choice() {
+    public function save_footer_type_choice() {
         
     }
 

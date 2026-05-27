@@ -11,9 +11,6 @@ abstract class Manager_Interface {
         add_action( 'wp_footer', [ $this, 'render_footer' ] );
     }
 
-    public abstract function register_options_in_database();
-    public abstract function delete_options_from_database();
-
     public abstract function is_footer_enabled();
     public abstract function disable_footer();
     public abstract function enable_footer();

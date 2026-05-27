@@ -30,6 +30,9 @@ class Deactivator {
 	
 	}
 
+
+    public static function delete_options_from_database();
+
 	/**
      * Ejecuta una función específica (callback) en todos los sitios de la red multisitio.
      *
