@@ -42,10 +42,10 @@ abstract class Manager_Interface {
             return;
         }
 
-        $variante_elegida = get_option( 'sedici_footer_variant_id', '' );
+        $variante_elegida = $this->get_footer_type();
 
-        if ( empty( $variante_elegida ) ) {
-            $variante_elegida = get_network_option( get_current_network_id(), 'sedici_network_footer_variant_id', 'institucional' );
+        if ( $variante_elegida == 'heredado' ) {
+            $variante_elegida = $this->get_footer_type_from_network();
         }
 
         $datos_footer = Footer_Data_Provider::get( $variante_elegida );

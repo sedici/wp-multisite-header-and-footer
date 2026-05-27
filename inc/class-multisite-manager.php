@@ -30,7 +30,7 @@ class Multisite_Manager extends Manager_Interface {
     */
     public function is_valid_footer_type( $type ) {
 
-        if( is_networkd_admin()) {
+        if( is_network_admin()) {
             if( Footer_Data_Provider::type_exists( $type )) {
                 return true;
             }
@@ -89,17 +89,9 @@ class Multisite_Manager extends Manager_Interface {
     */
     public function save_footer_type_choice($type) {
 
-
         if ($this->is_valid_footer_type($type)) {
 
-            if ($type == 'heredado') {
-                $footer_type_from_network = $this->get_footer_type_from_network();
-                $this->set_footer_type($footer_type_from_network);
-            }
-            else {
-                $this->set_footer_type($type);
-            }
-
+            $this->set_footer_type($type);
         }
         else {
             wp_die('Opción de footer no válida.');

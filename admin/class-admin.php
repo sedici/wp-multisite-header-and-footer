@@ -86,8 +86,13 @@ class Admin {
 
         if ( isset( $_POST['sedici_footer_selection'] ) && ! empty( $_POST['sedici_footer_selection'] ) ) {
             $selected_option = sanitize_text_field( $_POST['sedici_gf_layout_simple'] );
-            $this->manager->save_footer_choice($selected_option);
+            $this->manager->save_footer_type_choice($selected_option);
         }
+
+        $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
+        wp_redirect($url_dest);
+        exit;
+
     }
 
     public function reg_admin_styles(){
