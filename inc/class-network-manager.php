@@ -10,6 +10,28 @@ use SediciMultisiteFooter\Inc\Manager_Interface;
 */
 class Network_Manager extends Manager_Interface {
     
+    public function register_options_in_database() {
+
+    }
+
+    public function delete_options_from_database() {
+
+    }
+
+    /*
+    *   Obtiene el tipo de footer seteado a nivel de red.
+    */
+    public function get_footer_type_from_network() {
+
+    }
+
+    /*
+    *   Setea el tipo de footer a nivel de sitio red.
+    */
+    public function set_network_footer_type($type) {
+
+    }
+
     public function is_footer_enabled() {
         return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
     }

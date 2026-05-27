@@ -10,6 +10,14 @@ use SediciMultisiteFooter\Inc\Manager_Interface;
 */
 class Single_Site_Manager extends Manager_Interface {
     
+    public function register_options_in_database() {
+
+    }
+
+    public function delete_options_from_database() {
+
+    }
+
     public function is_footer_enabled() {
         return get_option('sedici_footer_status') == 1;
     }

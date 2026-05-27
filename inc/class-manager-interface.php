@@ -11,16 +11,24 @@ abstract class Manager_Interface {
         add_action( 'wp_footer', [ $this, 'render_footer' ] );
     }
 
+    public abstract function register_options_in_database();
+    public abstract function delete_options_from_database();
 
     public abstract function is_footer_enabled();
     public abstract function disable_footer();
     public abstract function enable_footer();
 
-    //
-    public abstract function save_footer_choice();
+    
+    public abstract function save_footer_type_choice();
 
-    // Este método tiene que estar dos veces, uno para obtener el type a nivel de red, y otro para obtenerlo a nivel de sitio.
+    /*
+    *   Obtiene el tipo de footer seteado a nivel de sitio individual.
+    */
     public abstract function get_footer_type();
+
+    /*
+    *   Setea el tipo de footer a nivel de sitio individual.
+    */
     public abstract function set_footer_type($type);
 
     public function render_footer() {
