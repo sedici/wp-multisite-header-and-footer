@@ -9,6 +9,10 @@ class Footer_Data_Provider {
      */
     private static function get_all() {
         return [
+            'heredar' => [
+                
+            ],
+
             'prebi-sedici' => [
                 'color_fondo'     => '#004b87',
                 'logo_dependencia' => '',
@@ -41,12 +45,7 @@ class Footer_Data_Provider {
     }
 
     public static function get_options() {
-        return [
-            'heredado',
-            'prebi-sedici',
-            'cesgi',
-            'prebi-cesgi'
-        ];
+        return array_keys( self::get_all() );
     }
 
     /**
