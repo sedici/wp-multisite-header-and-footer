@@ -63,9 +63,9 @@ class Admin {
         }
 
         if ( isset( $_POST['input_sedici_footer_status'] ) && $_POST['input_sedici_footer_status'] == '1' ) {
-            $this->footer->enable_footer();
+            $this->manager->enable_footer();
         } else {
-            $this->footer->disable_footer();
+            $this->manager->disable_footer();
         }
 
         $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
@@ -81,12 +81,12 @@ class Admin {
 
         if ( isset( $_POST['sedici_footer_selection'] ) && ! empty( $_POST['sedici_footer_selection'] ) ) {
             $selected_option = sanitize_text_field( $_POST['sedici_gf_layout_simple'] );
-            $this->footer->set_selected_footer( $selected_option );
+            $this->manager->set_footer_type( $selected_option );
         }
 
         // Esto lo va a tener que hacer el footer, porque si actualizo a nivel de red, debo usar update_network_option, 
         // pero si lo hago a nivel de sitio, debo usar update_option. 
-        $this->footer->save_footer_choice();
+        $this->manager->save_footer_choice();
     }
 
     public function reg_admin_styles(){
