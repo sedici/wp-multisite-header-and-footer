@@ -1,35 +1,34 @@
 <?php
 
-namespace SediciMultisiteFooter\Inc;
+namespace SediciMultisiteFooter\Core;
 
 /**
  * Acciones luego de desactivar el plugin
  */
 
-class Activator {
+class Deactivator {
 
-	/** 
-	 * Acciones a ejecutar luego de activar el plugin
-     * Incluye 2 options : uno para conocer el estado del footer y otro para obtener el tipo de footer seteado
+	/**
+	 *  Acciones a ejecutar luego de desactivar el plugin
+     * Elimina las opciones seteadas al activar el plugin
      * @return void
-     * 
 	 */
-	public static function activate() {
+	public static function deactivate() {
 
 		if ( is_multisite() ) {
-            add_network_option(get_current_network_id(),'sedici_footer_network_status', 0);
-            add_network_option(get_current_network_id(),'sedici_footer_network_type', 'prebi-sedici');
+            delete_network_option(get_current_network_id(),'sedici_footer_network_status');
+            delete_network_option(get_current_network_id(),'sedici_footer_network_type');
 			self::run_on_all_sites( function() {
-				add_option('sedici_footer_status', 0);
-                add_option('sedici_footer_type', 'heredado');
+				delete_option('sedici_footer_status');
+                delete_option('sedici_footer_type');
 			});
         }
 		else {
-			add_option('sedici_footer_status', 0);
-            add_option('sedici_footer_type', 'prebi-sedici');
+			delete_option('sedici_footer_status');
+            delete_option('sedici_footer_type');
 		}
+	
 	}
-
 
 	/**
      * Ejecuta una función específica (callback) en todos los sitios de la red multisitio.

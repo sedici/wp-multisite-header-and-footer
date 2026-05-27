@@ -20,15 +20,15 @@ if ((! defined( 'WPINC' ) ) or (! is_multisite())) die;
 
  define( 'SEDICI_MULTISITE_FOOTER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
- require_once SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'inc/class-autoloader.php';
+ require_once SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'core/class-autoloader.php';
  require_once 'core/class-init.php';
 
 
 /**
  * Register Activation and Deactivation Hooks
  */
-register_activation_hook( __FILE__, array( 'SediciMultisiteFooter\Inc\Activator', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'SediciMultisiteFooter\Inc\Deactivator', 'deactivate' ) );
+register_activation_hook( __FILE__, array( 'SediciMultisiteFooter\Core\Activator', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'SediciMultisiteFooter\Core\Deactivator', 'deactivate' ) );
 
 
 class WP_Multisite_Footer {

@@ -1,6 +1,6 @@
 <?php
 
-namespace SediciMultisiteFooter\Inc\Footer;
+namespace SediciMultisiteFooter\Inc;
 
 class Footer_Data_Provider {
 

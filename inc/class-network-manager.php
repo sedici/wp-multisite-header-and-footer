@@ -1,10 +1,16 @@
 <?php
 
-namespace SediciMultisiteFooter\Inc\Footer;
+namespace SediciMultisiteFooter\Inc;
+use SediciMultisiteFooter\Inc\Manager_Interface;
 
-class Network_Footer extends Footer_Interface {
+/*
+*
+*   Clase para englobar comportamiento del plugin activo a nivel de red. 
+*   Implementa la interfaz Footer_Interface
+*/
+class Network_Manager extends Manager_Interface {
     
-    public function is_enabled() {
+    public function is_footer_enabled() {
         return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
     }
 
@@ -28,6 +34,10 @@ class Network_Footer extends Footer_Interface {
     */
     public function set_footer_type($type) {
         update_option('sedici_footer_type', $type);
+    }
+
+    public function save_footer_choice() {
+        
     }
 
 }

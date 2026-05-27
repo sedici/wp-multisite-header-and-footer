@@ -1,9 +1,10 @@
 <?php
 
-namespace SediciMultisiteFooter\Inc\Footer;
-use SediciMultisiteFooter\Inc\Footer\Footer_Data_Provider;
+namespace SediciMultisiteFooter\Inc;
+use SediciMultisiteFooter\Inc\Footer_Data_Provider;
 
-abstract class Footer_Interface {
+
+abstract class Manager_Interface {
 
     public function __construct( ) {
         // Registro hook para renderizar el footer en el frontend
@@ -11,15 +12,19 @@ abstract class Footer_Interface {
     }
 
 
-    public abstract function is_enabled();
+    public abstract function is_footer_enabled();
     public abstract function disable_footer();
     public abstract function enable_footer();
 
+    //
+    public abstract function save_footer_choice();
+
+    // Este método tiene que estar dos veces, uno para obtener el type a nivel de red, y otro para obtenerlo a nivel de sitio.
     public abstract function get_footer_type();
     public abstract function set_footer_type($type);
 
     public function render_footer() {
-        if ( ! $this->is_enabled() ) {
+        if ( ! $this->is_footer_enabled() ) {
             return;
         }
 
