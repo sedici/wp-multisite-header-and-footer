@@ -11,22 +11,31 @@ abstract class Manager_Interface {
         add_action( 'wp_footer', [ $this, 'render_footer' ] );
     }
 
-    public abstract function is_footer_enabled();
-    public abstract function disable_footer();
-    public abstract function enable_footer();
+    abstract public function is_footer_enabled();
+    abstract public function disable_footer();
+    abstract public function enable_footer();
 
+    /**
+    * Devuelve las opciones disponibles para este contexto específico.
+    */
+    abstract public function get_available_options();
+
+    /**
+    * Valida si la opción enviada por el form es válida para este contexto.
+    */
+    abstract public function is_valid_footer_type( $option );
     
-    public abstract function save_footer_type_choice();
+    abstract public function save_footer_type_choice($type);
 
     /*
     *   Obtiene el tipo de footer seteado a nivel de sitio individual.
     */
-    public abstract function get_footer_type();
+    abstract public function get_footer_type();
 
     /*
     *   Setea el tipo de footer a nivel de sitio individual.
     */
-    public abstract function set_footer_type($type);
+    abstract public function set_footer_type($type);
 
     public function render_footer() {
         if ( ! $this->is_footer_enabled() ) {

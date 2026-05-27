@@ -49,6 +49,11 @@ class Admin {
         else {
             $footer_status = $this->manager->is_footer_enabled() ? 1 : 0;
             $form_options = Footer_Data_Provider::get_options();
+
+            if ( is_multisite() && ! is_network_admin() ) {
+                array_unshift( $form_options, 'heredado' );
+            }
+
             $ruta_form = dirname(__DIR__) . '/admin/views/footer-form.php';
             load_template( $ruta_form, false, ['form_options' => $form_options, 'footer_status' => $footer_status ] );
         }
@@ -81,12 +86,11 @@ class Admin {
 
         if ( isset( $_POST['sedici_footer_selection'] ) && ! empty( $_POST['sedici_footer_selection'] ) ) {
             $selected_option = sanitize_text_field( $_POST['sedici_gf_layout_simple'] );
-            $this->manager->set_footer_type( $selected_option );
+            
+            if (Footer_Data_Provider::type_exists($selected_option)) {
+                $this->manager->save_footer_choice($selected_option);
+            }
         }
-
-        // Esto lo va a tener que hacer el footer, porque si actualizo a nivel de red, debo usar update_network_option, 
-        // pero si lo hago a nivel de sitio, debo usar update_option. 
-        $this->manager->save_footer_choice();
     }
 
     public function reg_admin_styles(){

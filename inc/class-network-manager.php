@@ -14,14 +14,14 @@ class Network_Manager extends Manager_Interface {
     *   Obtiene el tipo de footer seteado a nivel de red.
     */
     public function get_footer_type_from_network() {
-
+        return get_network_option(get_current_network_id(), 'sedici_network_footer_type');
     }
 
     /*
     *   Setea el tipo de footer a nivel de sitio red.
     */
     public function set_network_footer_type($type) {
-
+        update_network_option(get_current_network_id(), 'sedici_network_footer_type', $type);
     }
 
     public function is_footer_enabled() {
@@ -37,21 +37,31 @@ class Network_Manager extends Manager_Interface {
     }
 
     /*
-    *   Obtiene el tipo de footer seteado para el sitio actual. Si no se encuentra, devuelve 'heredado' por defecto.
+    *   Obtiene el tipo de footer seteado para el sitio actual.
     */
     public function get_footer_type() {
-        return get_option('sedici_footer_type', 'heredado');
+        return get_option('sedici_footer_type');
     }
 
     /*
-    *   Setea el tipo de footer para el sitio actual. Si se setea 'heredado', el sitio tomará la configuración del footer a nivel de red.
+    *   Setea el tipo de footer para el sitio actual.
     */
     public function set_footer_type($type) {
         update_option('sedici_footer_type', $type);
     }
 
-    public function save_footer_type_choice() {
-        
+    /*
+    *   Guarda la elección del tipo de footer realizada por el usuario. 
+    */
+    public function save_footer_type_choice($type) {
+
+        if ($type == 'heredado') {
+            $footer_type_from_network = $this->get_footer_type_from_network();
+            $this->set_footer_type($footer_type_from_network);
+        }
+        else {
+            $this->set_footer_type($type);
+        }
     }
 
 }
