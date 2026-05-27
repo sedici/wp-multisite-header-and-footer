@@ -86,10 +86,7 @@ class Admin {
 
         if ( isset( $_POST['sedici_footer_selection'] ) && ! empty( $_POST['sedici_footer_selection'] ) ) {
             $selected_option = sanitize_text_field( $_POST['sedici_gf_layout_simple'] );
-            
-            if (Footer_Data_Provider::type_exists($selected_option)) {
-                $this->manager->save_footer_choice($selected_option);
-            }
+            $this->manager->save_footer_choice($selected_option);
         }
     }
 

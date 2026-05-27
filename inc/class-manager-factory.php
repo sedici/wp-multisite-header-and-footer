@@ -10,7 +10,7 @@ class Manager_Factory {
      */
     public static function create() {
         if ( is_multisite() ) {
-            return new Network_Manager();
+            return new Multisite_Manager();
         }
         return new Single_Site_Manager();
     }

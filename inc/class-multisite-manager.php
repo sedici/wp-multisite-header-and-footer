@@ -2,13 +2,47 @@
 
 namespace SediciMultisiteFooter\Inc;
 use SediciMultisiteFooter\Inc\Manager_Interface;
+use SediciMultisiteFooter\Inc\Footer_Data_Provider;
 
 /*
 *
 *   Clase para englobar comportamiento del plugin activo a nivel de red. 
 *   Implementa la interfaz Footer_Interface
 */
-class Network_Manager extends Manager_Interface {
+class Multisite_Manager extends Manager_Interface {
+
+    /**
+    * Devuelve las opciones disponibles para el contexto de un multisitio (y chequeando si la peticion viene 
+    * la interfaz de admin de la red).
+    */
+    public function get_available_options() {
+        $options = Footer_Data_Provider::get_options();
+
+        if ( is_multisite() && ! is_network_admin() ) {
+            array_unshift( $options, 'heredado' );
+        }
+
+        return $options;
+    }
+
+    /**
+    * Valida si la opción enviada por el form es válida para este contexto.
+    */
+    public function is_valid_footer_type( $type ) {
+
+        if( is_networkd_admin()) {
+            if( Footer_Data_Provider::type_exists( $type )) {
+                return true;
+            }
+            else return false;
+        }
+        else {
+            if( Footer_Data_Provider::type_exists( $type ) || $type === 'heredado' ) {
+                return true;
+            }
+            else return false;
+        }
+    }
 
     /*
     *   Obtiene el tipo de footer seteado a nivel de red.
@@ -55,13 +89,24 @@ class Network_Manager extends Manager_Interface {
     */
     public function save_footer_type_choice($type) {
 
-        if ($type == 'heredado') {
-            $footer_type_from_network = $this->get_footer_type_from_network();
-            $this->set_footer_type($footer_type_from_network);
+
+        if ($this->is_valid_footer_type($type)) {
+
+            if ($type == 'heredado') {
+                $footer_type_from_network = $this->get_footer_type_from_network();
+                $this->set_footer_type($footer_type_from_network);
+            }
+            else {
+                $this->set_footer_type($type);
+            }
+
         }
         else {
-            $this->set_footer_type($type);
+            wp_die('Opción de footer no válida.');
         }
+
+        
+        
     }
 
 }
