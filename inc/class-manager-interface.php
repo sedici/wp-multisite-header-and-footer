@@ -2,40 +2,72 @@
 
 namespace SediciMultisiteFooter\Inc;
 use SediciMultisiteFooter\Inc\Footer_Data_Provider;
+use SediciMultisiteFooter\Inc\Multisite_Helper;
 
 
 abstract class Manager_Interface {
+
+    use Multisite_Helper;
 
     public function __construct( ) {
         // Registro hook para renderizar el footer en el frontend
         add_action( 'wp_footer', [ $this, 'render_footer' ] );
     }
 
-    abstract public function is_footer_enabled();
     abstract public function disable_footer();
     abstract public function enable_footer();
-
-    /**
-    * Devuelve las opciones disponibles para este contexto específico.
-    */
     abstract public function get_available_options();
 
     /**
     * Valida si la opción enviada por el form es válida para este contexto.
     */
     abstract public function is_valid_footer_type( $option );
+
+    public function is_footer_enabled() {
+        // 1. Se lee la configuración local del subsitio
+        $local_status = get_option('sedici_footer_status', 'heredado');
+
+        // 2. Si el subsitio decidió explícitamente apagarlo (0) o prenderlo (1), respetamos eso
+        if ( $local_status == '1' )
+            return true;
+        else return false;
+
+        // 3. Si el estado local es 'heredado', preguntamos a la red si el footer esta activo o no
+        return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
+    }
     
-    abstract public function save_footer_type_choice($type);
+    /*
+    *   Guarda la elección del tipo de footer realizada por el usuario. 
+    */
+    public function save_footer_type_choice($type) {
+
+        if ($this->is_valid_footer_type($type)) {
+
+            $this->set_footer_type($type);
+        }
+        else {
+            wp_die('Opción de footer no válida.');
+        }
+    }
 
     /*
-    *   Obtiene el tipo de footer seteado a nivel de sitio individual.
+    *   Obtiene el tipo de footer seteado para el sitio actual.
     */
-    abstract public function get_footer_type();
+    public function get_footer_type() {
+        $variante_elegida = get_option('sedici_footer_type', 'heredado');
+
+        if ( $variante_elegida == 'heredado' ) {
+            $variante_elegida = $this->get_footer_type_from_network();
+        }
+        return $variante_elegida;
+    }
 
     /*
-    *   Setea el tipo de footer a nivel de sitio individual.
+    *   Setea el tipo de footer para el sitio actual.
     */
-    abstract public function set_footer_type($type);
+    public function set_footer_type($type) {
+        update_option('sedici_footer_type', $type);
+    }
 
     public function render_footer() {
         

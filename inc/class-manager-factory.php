@@ -9,10 +9,20 @@ class Manager_Factory {
      * @return Manager
      */
     public static function create() {
-        if ( is_multisite() ) {
-            return new Multisite_Manager();
+
+        // 1. NO estamos en un entorno multisitio, devuelvo el manager para sitio único
+        if ( ! is_multisite() ) {
+            return new Single_Site_Manager();
         }
-        return new Single_Site_Manager();
+
+        // 2. ES multisitio y estamos en el panel de Administración de la Red
+        if ( is_network_admin() ) {
+            return new Network_Manager();
+        }
+        
+        // 3. Si ES multisitio pero estamos en un Subsitio
+        return new Subsite_Manager();   
+        
     }
 
 
