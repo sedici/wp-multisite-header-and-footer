@@ -3,6 +3,7 @@
 namespace SediciMultisiteFooter\Inc;
 use SediciMultisiteFooter\Inc\Manager_Interface;
 use SediciMultisiteFooter\Inc\Footer_Data_Provider;
+use SediciMultisiteFooter\Inc\Multisite_Helper;
 
 /*
 *
@@ -10,6 +11,8 @@ use SediciMultisiteFooter\Inc\Footer_Data_Provider;
 *   Implementa la interfaz Footer_Interface
 */
 class Multisite_Manager extends Manager_Interface {
+
+    use Multisite_Helper;
 
     /**
     * Devuelve las opciones disponibles para el contexto de un multisitio (y chequeando si la peticion viene 
@@ -59,6 +62,15 @@ class Multisite_Manager extends Manager_Interface {
     }
 
     public function is_footer_enabled() {
+        // 1. Se lee la configuración local del subsitio
+        $local_status = get_option('sedici_footer_status', 'heredado');
+
+        // 2. Si el subsitio decidió explícitamente apagarlo (0) o prenderlo (1), respetamos eso
+        if ( $local_status == '1' )
+            return true;
+        else return false;
+
+        // 3. Si el estado local es 'heredado', preguntamos a la red si el footer esta activo o no
         return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
     }
 
@@ -66,8 +78,24 @@ class Multisite_Manager extends Manager_Interface {
         update_network_option(get_current_network_id(), 'sedici_footer_network_status', 0);
     }
 
+    /*
+    *   Setea el estado del footer a nivel de red como habilitado.
+    *   Tiene que diferenciar entre habilitar el footer a nivel de red (que se refleja en la base de datos como una 
+    *   opción de red) y habilitarlo a nivel de sitio individual (que se refleja como una opción del sitio). 
+    */
     public function enable_footer() {
-        update_network_option(get_current_network_id(), 'sedici_footer_network_status', 1);
+
+        if(is_network_admin()) {
+            update_network_option(get_current_network_id(), 'sedici_footer_network_status', 1);
+            self::run_on_all_sites( function() {
+                update_option('sedici_footer_status', 1);
+            });
+        }
+        else {
+            update_option('sedici_footer_status', 1);
+        }
+        
+
     }
 
     /*
