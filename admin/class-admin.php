@@ -10,6 +10,7 @@ class Admin {
     public function __construct() {
 
         $this->manager = Manager_Factory::create();
+        error_log('Manager creado: ' . get_class($this->manager) );
 
         add_action('network_admin_menu',array($this,'add_plugin_admin_menu'),30); 
         add_action('admin_menu', array($this, 'add_plugin_admin_menu'), 30);
@@ -100,10 +101,10 @@ class Admin {
 
     public function reg_admin_styles(){
 
-		$css_url = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR.'admin/css/administrationStyle.css';
-		wp_register_style("administrationStyle", $css_url);
-		wp_enqueue_style("administrationStyle");
-	}
+		$css_url = plugins_url( 'css/sedici-global-footer-admin.css', __FILE__ );
+        wp_register_style("sedici-administration-style", $css_url);
+        wp_enqueue_style("sedici-administration-style");
+    }
 
 }
 ?>
