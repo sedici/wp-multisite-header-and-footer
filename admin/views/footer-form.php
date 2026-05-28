@@ -5,8 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="wrap">
 
-    <h1>Configuración del Footer Global</h1>
-    
+    <?php if ($args['is_admin_interface'] === true) : ?>
+        <h1>Configuración del Footer Global</h1>
+    <?php else : ?>
+        <h1>Configuración del Footer</h1>
+    <?php endif; ?>
+
     <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
         <input type="hidden" name="action" value="sedici_footer_save_status">
         
@@ -15,10 +19,19 @@ if ( ! defined( 'ABSPATH' ) ) {
             
             <div style="margin-bottom: 15px;">
                 <label for="footer_status">
-                    <input name="input_sedici_footer_status" type="checkbox" id="footer_status" value="1" <?php checked($args['footer_status'], 1); ?>>
-                    <strong>Habilitar el Footer Global</strong>
+                    <?php if ($args['is_admin_interface'] === true) : ?>
+                        <input name="input_sedici_footer_status" type="checkbox" id="footer_status" value="1" <?php checked($args['footer_status'], 1); ?>>
+                        <strong>Habilitar el footer global</strong>
+                    <?php else : ?>
+                        <input name="input_sedici_footer_status" type="checkbox" id="footer_status" value="1" <?php checked($args['footer_status'], 1); ?>>
+                        <strong>Habilitar el footer</strong>
+                    <?php endif; ?>
                 </label>
-                <p class="description" style="margin-top: 8px; margin-left: 24px;">Al activar esta opción, todos los sitios del multisitio heredarán el diseño global del footer establecido por la red.</p>
+                    <?php if ($args['is_admin_interface'] === true) : ?>
+                        <p class="description" style="margin-top: 8px; margin-left: 24px;">Al activar esta opción, todos los sitios del multisitio heredarán el diseño global del footer establecido por la red.</p>
+                    <?php else : ?>
+                        <p class="description" style="margin-top: 8px; margin-left: 24px;">Al activar esta opción, el footer será visible en este sitio.</p>
+                    <?php endif; ?>
             </div>
             
             <p class="submit" style="margin: 0; padding: 0;">

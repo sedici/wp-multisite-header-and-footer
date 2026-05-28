@@ -12,6 +12,8 @@ class Admin {
         $this->manager = Manager_Factory::create();
 
         add_action('network_admin_menu',array($this,'add_plugin_admin_menu'),30); 
+        add_action('admin_menu', array($this, 'add_plugin_admin_menu'), 30);
+
         add_action('admin_enqueue_scripts',array($this,'reg_admin_styles'),30);
         
         // Registro hook para procesar el form de estado del footer
@@ -27,11 +29,11 @@ class Admin {
      * Agrega el submenú bajo la pestaña "Sitios"
      */
     public function add_plugin_admin_menu() {
-
+        $parent_slug = is_network_admin() ? 'sites.php' : 'options-general.php';
         add_submenu_page(
-            'sites.php',                  
-            'Configuración Global Footer', 
-            'Configuración Footer Global',               
+            $parent_slug,                  
+            'Configuración Footer SEDICI', 
+            'Configuración Footer SEDICI',               
             'manage_network_options',      
             'sedici-global-footer',      
             [ $this, 'render_form_multisite_footer' ]
@@ -49,13 +51,14 @@ class Admin {
         else {
             $footer_status = $this->manager->is_footer_enabled() ? 1 : 0;
             $form_options = Footer_Data_Provider::get_options();
+            $is_admin_interface = is_network_admin();
 
             if ( is_multisite() && ! is_network_admin() ) {
                 array_unshift( $form_options, 'heredado' );
             }
 
             $ruta_form = dirname(__DIR__) . '/admin/views/footer-form.php';
-            load_template( $ruta_form, false, ['form_options' => $form_options, 'footer_status' => $footer_status ] );
+            load_template( $ruta_form, false, ['is_admin_interface' => $is_admin_interface, 'form_options' => $form_options, 'footer_status' => $footer_status ] );
         }
                 
     }
