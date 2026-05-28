@@ -38,15 +38,12 @@ abstract class Manager_Interface {
     abstract public function set_footer_type($type);
 
     public function render_footer() {
+        
         if ( ! $this->is_footer_enabled() ) {
             return;
         }
 
         $variante_elegida = $this->get_footer_type();
-
-        if ( $variante_elegida == 'heredado' ) {
-            $variante_elegida = $this->get_footer_type_from_network();
-        }
 
         $datos_footer = Footer_Data_Provider::get( $variante_elegida );
 

@@ -74,24 +74,40 @@ class Multisite_Manager extends Manager_Interface {
         return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
     }
 
+    /*
+    *   Deshabilita el footer cambiando el footer status en la bd
+    *   Tiene que diferenciar entre deshabilitar el footer a nivel de red (que se refleja en la base de datos como una 
+    *   opción de red) y deshabilitarlo a nivel de sitio individual (que se refleja como una opción del sitio).
+    */
     public function disable_footer() {
-        update_network_option(get_current_network_id(), 'sedici_footer_network_status', 0);
+
+        // Deshabilito el footer desde la interfaz admin de la red
+        if(is_network_admin()) {
+            update_network_option(get_current_network_id(), 'sedici_footer_network_status', 0);
+            self::run_on_all_sites( function() {
+                update_option('sedici_footer_status', 'heredado');
+            });
+        }
+        else { // Deshabilito el footer desde la interfaz admin de un sitio individual
+            update_option('sedici_footer_status', 0);
+        }
     }
 
     /*
-    *   Setea el estado del footer a nivel de red como habilitado.
+    *   Habilita el footer cambiando el footer status en la bd
     *   Tiene que diferenciar entre habilitar el footer a nivel de red (que se refleja en la base de datos como una 
     *   opción de red) y habilitarlo a nivel de sitio individual (que se refleja como una opción del sitio). 
     */
     public function enable_footer() {
 
+        // Habilita el footer desde la interfaz admin de la red
         if(is_network_admin()) {
             update_network_option(get_current_network_id(), 'sedici_footer_network_status', 1);
             self::run_on_all_sites( function() {
-                update_option('sedici_footer_status', 1);
+                update_option('sedici_footer_status', 'heredado');
             });
         }
-        else {
+        else { // Habilita el footer desde la interfaz admin de un sitio individual
             update_option('sedici_footer_status', 1);
         }
         
@@ -102,7 +118,12 @@ class Multisite_Manager extends Manager_Interface {
     *   Obtiene el tipo de footer seteado para el sitio actual.
     */
     public function get_footer_type() {
-        return get_option('sedici_footer_type');
+        $variante_elegida = get_option('sedici_footer_type', 'heredado');
+
+        if ( $variante_elegida == 'heredado' ) {
+            $variante_elegida = $this->get_footer_type_from_network();
+        }
+        return $variante_elegida;
     }
 
     /*
