@@ -5,8 +5,7 @@ use SediciMultisiteFooter\Inc\Manager_Interface;
 
 /*
 *
-*   Clase para englobar comportamiento del plugin activo a nivel de sitio individual. 
-*   Implementa la interfaz Footer_Interface. CAMBIAR NOMBRE DE LA CLASE
+*   Clase para englobar comportamiento de un sitio individual dentro de un multisitio.
 */
 class Single_Site_Manager extends Manager_Interface {
 

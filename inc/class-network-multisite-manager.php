@@ -4,6 +4,10 @@ namespace SediciMultisiteFooter\Inc;
 use SediciMultisiteFooter\Inc\Data_Provider;
 use SediciMultisiteFooter\Inc\Manager_Interface;
 
+/*
+*
+*   Clase para englobar el comportamiento de la administración de red de un multisitio.
+*/
 class Network_Multisite_Manager extends Manager_Interface {
 
     /*
@@ -22,6 +26,18 @@ class Network_Multisite_Manager extends Manager_Interface {
     */
     public function disable_footer() {
         update_network_option(get_current_network_id(), 'sedici_footer_network_status', 0);
+    }
+
+    /*
+    *   Obtiene el tipo de footer seteado para el sitio actual.
+    */
+    public function get_footer_type() {
+        $variante_elegida = get_option('sedici_footer_type', 'heredado');
+
+        if ( $variante_elegida == 'heredado' ) {
+            $variante_elegida = $this->get_footer_type_from_network();
+        }
+        return $variante_elegida;
     }
 
     /*
