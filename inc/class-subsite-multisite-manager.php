@@ -1,9 +1,9 @@
 <?php
 
 namespace SediciMultisiteFooter\Inc;
-use SediciMultisiteFooter\Inc\Multisite_Interface;
+use SediciMultisiteFooter\Inc\Manager_Interface;
 
-class Subsite_Multisite_Manager extends Multisite_Interface {
+class Subsite_Multisite_Manager extends Manager_Interface {
 
     public function enable_footer() {
         update_option('sedici_footer_status', 1);

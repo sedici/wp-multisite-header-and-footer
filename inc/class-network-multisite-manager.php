@@ -2,9 +2,9 @@
 
 namespace SediciMultisiteFooter\Inc;
 use SediciMultisiteFooter\Inc\Data_Provider;
-use SediciMultisiteFooter\Inc\Multisite_Interface;
+use SediciMultisiteFooter\Inc\Manager_Interface;
 
-class Network_Multisite_Manager extends Multisite_Interface {
+class Network_Multisite_Manager extends Manager_Interface {
 
     /*
     *   Obtiene el tipo de footer seteado a nivel de red.
