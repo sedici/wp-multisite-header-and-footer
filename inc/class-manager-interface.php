@@ -24,6 +24,8 @@ abstract class Manager_Interface {
     abstract public function is_valid_footer_type( $option );
 
     abstract public function is_footer_enabled();
+
+    abstract public function is_footer_inherited();
     
     /*
     *   Guarda la elección del tipo de footer realizada por el usuario. 
@@ -39,6 +41,9 @@ abstract class Manager_Interface {
         }
     }
 
+    /*
+    *   Obtiene el tipo de footer seteado a nivel de red.
+    */
     public function get_footer_type_from_network() {
         return get_network_option(get_current_network_id(), 'sedici_network_footer_type');
     }
@@ -48,7 +53,7 @@ abstract class Manager_Interface {
     */
     public function get_footer_type() {
         $variante_elegida = get_option('sedici_footer_type', 'heredado');
-
+        
         if ( $variante_elegida == 'heredado' ) {
             $variante_elegida = $this->get_footer_type_from_network();
         }

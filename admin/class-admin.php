@@ -54,13 +54,14 @@ class Admin {
 
         else {
             $is_network_admin_interface = is_network_admin();
-            
+
             $context = $is_network_admin_interface ? 'network' : 'subsite';
             $this->manager = Manager_Factory::create($context);
 
             $footer_status = $this->manager->is_footer_enabled() ? 1 : 0;
             $form_options = $this->manager->get_available_options();
-            $footer_is_inherited = $this->manager->get_footer_type();
+            $footer_is_inherited = $this->manager->is_footer_inherited();
+            error_log("El footer type es" , $footer_is_inherited);
 
             $ruta_form = dirname(__DIR__) . '/admin/views/footer-form.php';
             load_template( $ruta_form, false, ['is_network_admin_interface' => $is_network_admin_interface, 

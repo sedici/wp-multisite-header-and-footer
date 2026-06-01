@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     </form>
 
 
-    <?php if ( $args['is_network_admin_interface'] === false && $args['footer_is_inherited'] != 'heredado' ) : ?>
+    <?php if ( $args['is_network_admin_interface'] === false && $args['footer_is_inherited'] === false ) : ?>
 
         <! -- Formulario para sincronizar el footer status con la red -->
         
@@ -69,7 +69,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </p>
 
                 <p class="submit" style="margin: 0; padding: 0;">
-                    <input type="submit" name="submit_sync_form" class="button button-secondary" value="Restaurar herencia de red" onclick="return confirm('¿Estás seguro de que deseas descartar la configuración local y volver a heredar de la red?');">
+                    <input type="submit" name="submit_sync_form" class="button button-secondary" value="Volver a sincronizar con la red" onclick="return confirm('¿Estás seguro de que deseas descartar la configuración local y volver a heredar de la red?');">
                 </p>
             </div>
         </form>

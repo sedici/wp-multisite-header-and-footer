@@ -14,11 +14,8 @@ class Network_Multisite_Manager extends Manager_Interface {
         return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
     }
 
-    /*
-    *   Obtiene el tipo de footer seteado a nivel de red.
-    */
-    public function get_footer_type_from_network() {
-        return get_network_option(get_current_network_id(), 'sedici_network_footer_type');
+    public function is_footer_inherited() {
+        return false;
     }
 
     public function enable_footer() {
