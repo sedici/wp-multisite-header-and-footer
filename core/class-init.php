@@ -2,6 +2,7 @@
 
 namespace SediciMultisiteFooter\Core;
 use SediciMultisiteFooter\Admin\Admin;
+use SediciMultisiteFooter\Inc\Manager_Factory;
 
 require_once 'class-loader.php';
 
@@ -45,7 +46,7 @@ class Init {
 
 	public function define_public_hooks() {
 		add_action('wp_enqueue_scripts',array($this,'reg_public_styles'),30);
-
+		Manager_Factory::create('subsite');
 	}
 
 	public function reg_public_styles() {
