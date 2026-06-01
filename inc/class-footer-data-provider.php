@@ -10,18 +10,20 @@ class Footer_Data_Provider {
     private static function get_all() {
         return [
             'prebi-sedici' => [
-                'color_fondo'     => '#004b87',
+                'color_fondo'     => '#242424',
                 'logo_dependencia' => plugins_url( 'public/img/prebi-sedici-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
+                'logo_secundario'    => plugins_url( 'public/img/sitios-web-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'PREBI-SEDICI',
-                'url_dependencia' => 'https://prebi.sedici.unlp.edu.ar/',
+                'url_dependencia' => 'https://prebi-sedici.unlp.edu.ar/',
                 'nombre_institucion' => 'Universidad Nacional de La Plata (UNLP)',
                 'url_institución' => 'https://unlp.edu.ar/',
 
             ],
             'cesgi' => [
-                'color_fondo'     => '#004b87',
+                'color_fondo'     => '#242424',
                 'logo_dependencia' => plugins_url( 'public/img/cesgi-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
+                'logo_secundario' => '',
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'CESGI',
                 'url_dependencia' => 'https://cesgi.cic.gba.gob.ar/',
@@ -29,8 +31,9 @@ class Footer_Data_Provider {
                 'url_institución' => 'https://www.cic.gba.gob.ar/',
             ],
             'prebi-cesgi' => [
-                'color_fondo'     => '',
+                'color_fondo'     => '#242424',
                 'logo_dependencia' => '',
+                'logo_secundario' => '',
                 'texto_principal' => '',
                 'nombre_dependencia' => '',
                 'url_dependencia' => '',
