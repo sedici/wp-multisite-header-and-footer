@@ -39,6 +39,10 @@ abstract class Manager_Interface {
         }
     }
 
+    public function get_footer_type_from_network() {
+        return get_network_option(get_current_network_id(), 'sedici_network_footer_type');
+    }
+
     /*
     *   Obtiene el tipo de footer seteado para el sitio actual.
     */

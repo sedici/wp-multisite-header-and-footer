@@ -11,6 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
         <h1>Configuración del Footer</h1>
     <?php endif; ?>
 
+
+    <! -- Formulario para habilitar/deshabilitar el footer --->
+
     <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 
         <input type="hidden" name="action" value="sedici_footer_save_status">
@@ -45,6 +48,36 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
     </form>
 
+
+    <?php if ( $args['is_network_admin_interface'] === false && $args['footer_is_inherited'] != 'heredado' ) : ?>
+
+        <! -- Formulario para sincronizar el footer status con la red -->
+        
+        <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+            
+            <input type="hidden" name="action" value="sedici_footer_sync_with_network">
+            
+            <input type="hidden" name="sedici_admin_context" value="subsite">
+
+            <?php wp_nonce_field('sedici_footer_sync_with_network', 'sedici_multisite_footer_nonce'); ?>
+
+            <div style="margin-top: 20px; background: #fff; padding: 20px; border: 1px solid #ccd0d4; border-radius: 4px; box-shadow: 0 1px 1px rgba(0,0,0,.04); border-left: 4px solid #00a0d2;">
+                <h2 style="margin-top: 0; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">Sincronización con la Red</h2>
+                
+                <p style="margin-bottom: 15px;">
+                    Al sincronizar, este sitio volverá a <strong>heredar dinámicamente</strong> el footer status de la red.
+                </p>
+
+                <p class="submit" style="margin: 0; padding: 0;">
+                    <input type="submit" name="submit_sync_form" class="button button-secondary" value="Restaurar herencia de red" onclick="return confirm('¿Estás seguro de que deseas descartar la configuración local y volver a heredar de la red?');">
+                </p>
+            </div>
+        </form>
+
+    <?php endif; ?>
+
+
+    <! -- Formulario para elegir tipo de footer y personalizarlo --->
 
     <?php if ( $args['footer_status'] === 1 ) : ?>
         

@@ -23,6 +23,9 @@ class Admin {
         // Registro hook para procesar el form de seleccion de footer
         add_action( 'admin_post_sedici_footer_selection', [ $this, 'save_footer_choice' ] );
 
+        // Registro hook para procesar el form de sincronización con la red
+        add_action( 'admin_post_sedici_footer_sync_with_network', [ $this, 'sync_footer_with_network' ] );
+
     }
 
 
@@ -51,14 +54,19 @@ class Admin {
 
         else {
             $is_network_admin_interface = is_network_admin();
+            
             $context = $is_network_admin_interface ? 'network' : 'subsite';
             $this->manager = Manager_Factory::create($context);
 
             $footer_status = $this->manager->is_footer_enabled() ? 1 : 0;
             $form_options = $this->manager->get_available_options();
+            $footer_is_inherited = $this->manager->get_footer_type();
 
             $ruta_form = dirname(__DIR__) . '/admin/views/footer-form.php';
-            load_template( $ruta_form, false, ['is_network_admin_interface' => $is_network_admin_interface, 'form_options' => $form_options, 'footer_status' => $footer_status ] );
+            load_template( $ruta_form, false, ['is_network_admin_interface' => $is_network_admin_interface, 
+                                               'form_options' => $form_options, 
+                                               'footer_status' => $footer_status,
+                                               'footer_is_inherited' => $footer_is_inherited ] );
         }
                 
     }
@@ -87,6 +95,25 @@ class Admin {
         } else {
             $this->manager->disable_footer();
         }
+
+        $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
+        wp_redirect($url_dest);
+        exit;
+    }
+
+    public function sync_footer_with_network() {
+        // Chequeo que el usuario es super admin
+        if ( ! current_user_can('manage_network_options') ) {
+            wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
+        }
+
+        // Chequeo nonce válido, acción del usuario es la que espera
+        if ( ! isset($_POST['sedici_multisite_footer_nonce']) || ! check_admin_referer('sedici_footer_sync_with_network', 'sedici_multisite_footer_nonce') ) {
+            wp_die('Nonce inválido.');
+        }
+
+        $this->manager = Manager_Factory::create('subsite');
+        $this->manager->sync_with_network();
 
         $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
         wp_redirect($url_dest);
