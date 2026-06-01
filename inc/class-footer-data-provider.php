@@ -11,7 +11,7 @@ class Footer_Data_Provider {
         return [
             'prebi-sedici' => [
                 'color_fondo'     => '#004b87',
-                'logo_dependencia' => '',
+                'logo_dependencia' => plugins_url( 'public/img/prebi-sedici-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'PREBI-SEDICI',
                 'url_dependencia' => 'https://prebi.sedici.unlp.edu.ar/',
@@ -21,7 +21,7 @@ class Footer_Data_Provider {
             ],
             'cesgi' => [
                 'color_fondo'     => '#004b87',
-                'logo_dependencia' => '',
+                'logo_dependencia' => plugins_url( 'public/img/cesgi-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'CESGI',
                 'url_dependencia' => 'https://cesgi.cic.gba.gob.ar/',
