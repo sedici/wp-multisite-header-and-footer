@@ -21,15 +21,19 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="footer-text-container">
         <p>
             Sitio web desarrollado en colaboración con
-            <strong><?php echo esc_html( $args['nombre_dependencia'] ); ?></strong> 
+            <a href="<?php echo esc_url( $args['url_dependencia'] ); ?>" target="_blank" rel="noopener noreferrer">
+                <strong><?php echo esc_html( $args['nombre_dependencia'] ); ?></strong>
+            </a> 
             | 
-            <?php echo esc_html( $args['nombre_institucion'] ); ?>
+            <a href="<?php echo esc_url( $args['url_institución'] ); ?>" target="_blank" rel="noopener noreferrer">
+                <?php echo esc_html( $args['nombre_institucion'] ); ?>
+            </a>
         </p>
     </div>
 
     <?php if ( ! empty( $args['logo_secundario'] ) ) : ?>
         <div class="footer-logo-right-container">
-            <a href="<?php echo esc_url( $args['url_institución'] ); ?>" target="_blank" rel="noopener noreferrer">
+            <a href="<?php echo esc_url( $args['url_logo_secundario'] ); ?>" target="_blank" rel="noopener noreferrer">
                 <img src="<?php echo esc_url( $args['logo_secundario'] ); ?>" alt="Logo Institución">
             </a>
         </div>

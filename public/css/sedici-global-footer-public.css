@@ -73,6 +73,19 @@
     display: block;
 }
 
+/* Asegura que los enlaces del texto hereden el color correcto y no se vean azules */
+.sedici-global-footer .footer-text-container a {
+    color: inherit;
+    text-decoration: none; /* Quita el subrayado por defecto */
+    transition: opacity 0.2s ease; /* Suaviza el efecto hover */
+}
+
+/* Opcional: Un leve efecto visual cuando el usuario pasa el mouse por encima */
+.sedici-global-footer .footer-text-container a:hover {
+    opacity: 0.8;
+    text-decoration: underline; /* Agrega subrayado solo al posicionarse encima */
+}
+
 /* Adaptación para celulares y tablets pequeñas (Responsive) */
 @media (max-width: 900px) {
     .sedici-global-footer {

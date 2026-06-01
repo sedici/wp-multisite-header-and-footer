@@ -15,8 +15,9 @@ class Footer_Data_Provider {
                 'logo_secundario'    => plugins_url( 'public/img/sitios-web-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'PREBI-SEDICI',
-                'url_dependencia' => 'https://prebi-sedici.unlp.edu.ar/',
                 'nombre_institucion' => 'Universidad Nacional de La Plata (UNLP)',
+                'url_dependencia' => 'https://prebi-sedici.unlp.edu.ar/',
+                'url_logo_secundario' => 'https://sitios.sedici.unlp.edu.ar/',
                 'url_institución' => 'https://unlp.edu.ar/',
 
             ],
