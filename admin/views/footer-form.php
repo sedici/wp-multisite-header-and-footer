@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php wp_nonce_field('sedici_footer_save_type', 'sedici_multisite_footer_nonce'); ?>
 
             <div style="margin-top: 20px; background: #fff; padding: 20px; border: 1px solid #ccd0d4; border-radius: 4px; box-shadow: 0 1px 1px rgba(0,0,0,.04);">
-                <h2 style="margin-top: 0; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">Diseño y Color</h2>
+                <h2 style="margin-top: 0; font-size: 14px; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;">Seleccionar diseño</h2>
 
                 <div style="margin-bottom: 20px;">
                     <label for="mi_desplegable" style="display: block; font-weight: 600; margin-bottom: 8px;">
@@ -112,12 +112,14 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </select>
                 </div>
                 
+                <!--
                 <div style="margin-bottom: 20px;">
                     <label for="mi_color" style="display: block; font-weight: 600; margin-bottom: 8px;">
                         Selecciona un color de fondo:
                     </label>
                     <input type="color" name="sedici_gf_color_picker" id="mi_color" value="#0A1128" style="width: 60px; height: 35px; padding: 0; cursor: pointer; border: 1px solid #ccc; border-radius: 3px;">
                 </div>
+                -->
 
                 <p class="submit" style="margin: 0; padding: 0;">
                     <input type="submit" name="submit_simple_form" class="button button-primary" value="Guardar configuración">
