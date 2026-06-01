@@ -15,7 +15,7 @@ class Footer_Data_Provider {
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'PREBI-SEDICI',
                 'url_dependencia' => 'https://prebi.sedici.unlp.edu.ar/',
-                'nombre_institución' => 'Universidad Nacional de La Plata (UNLP)',
+                'nombre_institucion' => 'Universidad Nacional de La Plata (UNLP)',
                 'url_institución' => 'https://unlp.edu.ar/',
 
             ],
@@ -25,7 +25,7 @@ class Footer_Data_Provider {
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'CESGI',
                 'url_dependencia' => 'https://cesgi.cic.gba.gob.ar/',
-                'nombre_institución' => 'Comisión de Investigaciones Científicas de la Provincia de Buenos Aires (CIC)',
+                'nombre_institucion' => 'Comisión de Investigaciones Científicas de la Provincia de Buenos Aires (CIC)',
                 'url_institución' => 'https://www.cic.gba.gob.ar/',
             ],
             'prebi-cesgi' => [
@@ -34,7 +34,7 @@ class Footer_Data_Provider {
                 'texto_principal' => '',
                 'nombre_dependencia' => '',
                 'url_dependencia' => '',
-                'nombre_institución' => '',
+                'nombre_institucion' => '',
                 'url_institución' => '',
             ]
         ];
