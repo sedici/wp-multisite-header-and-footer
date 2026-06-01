@@ -23,18 +23,7 @@ abstract class Manager_Interface {
     */
     abstract public function is_valid_footer_type( $option );
 
-    public function is_footer_enabled() {
-        // 1. Se lee la configuración local del subsitio
-        $local_status = get_option('sedici_footer_status', 'heredado');
-
-        // 2. Si el subsitio decidió explícitamente apagarlo (0) o prenderlo (1), respetamos eso
-        if ( $local_status == '1' )
-            return true;
-        else return false;
-
-        // 3. Si el estado local es 'heredado', preguntamos a la red si el footer esta activo o no
-        return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
-    }
+    abstract public function is_footer_enabled();
     
     /*
     *   Guarda la elección del tipo de footer realizada por el usuario. 

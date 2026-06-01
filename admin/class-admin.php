@@ -9,8 +9,8 @@ class Admin {
 
     public function __construct() {
 
-        $this->manager = Manager_Factory::create();
-        error_log('Manager creado: ' . get_class($this->manager) );
+        //$this->manager = Manager_Factory::create();
+        //error_log('Manager creado: ' . get_class($this->manager) );
 
         add_action('network_admin_menu',array($this,'add_plugin_admin_menu'),30); 
         add_action('admin_menu', array($this, 'add_plugin_admin_menu'), 30);
@@ -50,16 +50,15 @@ class Admin {
         }
 
         else {
-            $footer_status = $this->manager->is_footer_enabled() ? 1 : 0;
-            $form_options = Footer_Data_Provider::get_options();
-            $is_admin_interface = is_network_admin();
+            $is_network_admin_interface = is_network_admin();
+            $context = $is_network_admin_interface ? 'network' : 'subsite';
+            $this->manager = Manager_Factory::create($context);
 
-            if ( is_multisite() && ! is_network_admin() ) {
-                array_unshift( $form_options, 'heredado' );
-            }
+            $footer_status = $this->manager->is_footer_enabled() ? 1 : 0;
+            $form_options = $this->manager->get_available_options();
 
             $ruta_form = dirname(__DIR__) . '/admin/views/footer-form.php';
-            load_template( $ruta_form, false, ['is_admin_interface' => $is_admin_interface, 'form_options' => $form_options, 'footer_status' => $footer_status ] );
+            load_template( $ruta_form, false, ['is_network_admin_interface' => $is_network_admin_interface, 'form_options' => $form_options, 'footer_status' => $footer_status ] );
         }
                 
     }
@@ -67,9 +66,21 @@ class Admin {
 
     public function save_footer_status() {
 
-        if ( ! is_super_admin() ) {
+        // Chequeo que el usuario es super admin
+        if ( ! current_user_can('manage_network_options') ) {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
+
+        // Chequeo nonce válido, acción del usuario es la que espera
+        if ( ! isset($_POST['sedici_multisite_footer_nonce']) || ! check_admin_referer('sedici_footer_save_status', 'sedici_multisite_footer_nonce') ) {
+            wp_die('Nonce inválido.');
+        }
+
+        // Chequeo el contexto, creo al manager correspondiente y guardo el estado del footer
+
+        $context = isset($_POST['sedici_admin_context']) ? $_POST['sedici_admin_context'] : 'subsite';
+
+        $this->manager = Manager_Factory::create($context);
 
         if ( isset( $_POST['input_sedici_footer_status'] ) && $_POST['input_sedici_footer_status'] == '1' ) {
             $this->manager->enable_footer();

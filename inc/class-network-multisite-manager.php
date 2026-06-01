@@ -10,6 +10,10 @@ use SediciMultisiteFooter\Inc\Manager_Interface;
 */
 class Network_Multisite_Manager extends Manager_Interface {
 
+    public function is_footer_enabled() {
+        return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
+    }
+
     /*
     *   Obtiene el tipo de footer seteado a nivel de red.
     */

@@ -5,6 +5,19 @@ use SediciMultisiteFooter\Inc\Manager_Interface;
 
 class Subsite_Multisite_Manager extends Manager_Interface {
 
+    public function is_footer_enabled() {
+        
+        $local_status = get_option('sedici_footer_status', 'heredado');
+
+        if( $local_status === 'heredado' ) {
+            return get_network_option(get_current_network_id(), 'sedici_footer_network_status') == 1;
+        }
+        else if ( $local_status == '1' )
+            return true;
+        else return false;
+
+    }
+
     public function enable_footer() {
         update_option('sedici_footer_status', 1);
     }
