@@ -24,7 +24,6 @@ class Footer_Data_Provider {
             'cesgi' => [
                 'color_fondo'     => '#242424',
                 'logo_dependencia' => plugins_url( 'public/img/cesgi-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
-                'logo_secundario' => '',
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'CESGI',
                 'url_dependencia' => 'https://cesgi.cic.gba.gob.ar/',
@@ -33,13 +32,17 @@ class Footer_Data_Provider {
             ],
             'prebi-cesgi' => [
                 'color_fondo'     => '#242424',
-                'logo_dependencia' => '',
-                'logo_secundario' => '',
-                'texto_principal' => '',
-                'nombre_dependencia' => '',
-                'url_dependencia' => '',
-                'nombre_institucion' => '',
-                'url_institución' => '',
+                'logo_dependencia1' => plugins_url( 'public/img/prebi-sedici-logo.svg', dirname( __DIR__ ) . '/multisite-footer.php' ),
+                'logo_dependencia2' => plugins_url( 'public/img/cesgi-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
+                'texto_principal' => 'Sitio web desarrollado en colaboracion con',
+                'nombre_dependencia1' => 'PREBI-SEDICI',
+                'nombre_dependencia2' => 'CESGI',
+                'url_dependencia1' => 'https://prebi-sedici.unlp.edu.ar/',
+                'url_dependencia2' => 'https://cesgi.cic.gba.gob.ar/',
+                'nombre_institucion1' => 'Universidad Nacional de La Plata (UNLP)',
+                'nombre_institucion2' => 'Comisión de Investigaciones Científicas de la Provincia de Buenos Aires (CIC)',
+                'url_institución1' => 'https://unlp.edu.ar/',
+                'url_institución2' => 'https://www.cic.gba.gob.ar/',
             ]
         ];
     }

@@ -64,7 +64,8 @@ abstract class Manager_Interface {
         $datos_footer = Footer_Data_Provider::get( $variante_elegida );
 
         $ruta_plantilla = SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'public/footer-template.php';
-        load_template( $ruta_plantilla, false, $datos_footer );
+        load_template( $ruta_plantilla, false, ['datos_footer' => $datos_footer, 
+                                                'variante_elegida' => $variante_elegida] );
     }
 
 }
