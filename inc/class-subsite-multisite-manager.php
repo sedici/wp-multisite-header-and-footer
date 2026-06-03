@@ -75,7 +75,12 @@ class Subsite_Multisite_Manager extends Manager_Interface {
         return Footer_Data_Provider::type_exists( $type ) || $type === 'heredado';
     }
 
+    public function desync_with_network() {
+        update_option('sedici_is_subsite_footer_sync_with_network', 0);
+    }
+
     public function sync_with_network() {
+        update_option('sedici_is_subsite_footer_sync_with_network', 1);
         update_option('sedici_footer_status', 'heredado');
         update_option('sedici_footer_type', 'heredado');
     }

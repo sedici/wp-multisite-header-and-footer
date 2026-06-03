@@ -22,6 +22,7 @@ class Deactivator {
             self::delete_network_options_from_database();
 			self::run_on_all_sites( function() {
                 self::delete_site_options_from_database();
+                delete_option('sedici_is_subsite_footer_sync_with_network');
 			});
         }
 		else {

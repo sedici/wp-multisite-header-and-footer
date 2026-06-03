@@ -24,6 +24,7 @@ class Activator {
 
 			self::run_on_all_sites( function() {
 				self::register_site_options_in_database('heredado');
+                add_option('sedici_is_subsite_footer_sync_with_network', 1);
 			});
         }
 		else {
