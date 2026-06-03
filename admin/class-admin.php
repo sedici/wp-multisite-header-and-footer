@@ -120,6 +120,7 @@ class Admin {
     }
 
     public function save_footer_choice() {
+         // Chequeo que el usuario es super admin
 
         if ( ! is_super_admin() ) {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
@@ -134,7 +135,6 @@ class Admin {
         $context = isset($_POST['sedici_admin_context']) ? $_POST['sedici_admin_context'] : 'subsite';
 
         $this->manager = Manager_Factory::create($context);
-
         if ( isset( $_POST['sedici_footer_option_selected'] ) && ! empty( $_POST['sedici_footer_option_selected'] ) ) {
             $selected_option = sanitize_text_field( $_POST['sedici_footer_option_selected'] );
             $this->manager->save_footer_type_choice($selected_option);

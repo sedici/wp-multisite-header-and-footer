@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <?php if ( $args['is_network_admin_interface'] === false && $args['footer_is_inherited'] === false ) : ?>
 
-        <! -- Formulario para sincronizar el footer status con la red -->
+        <! -- Formulario para sincronizar el footer status con la red -- >
         
         <form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
             
@@ -77,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <?php endif; ?>
 
 
-    <! -- Formulario para elegir tipo de footer y personalizarlo --->
+    <! -- Formulario para elegir tipo de footer y personalizarlo --- >
 
     <?php if ( $args['footer_status'] === 1 ) : ?>
         
@@ -96,14 +96,14 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <label for="mi_desplegable" style="display: block; font-weight: 600; margin-bottom: 8px;">
                         Selecciona una opción:
                     </label>
-                    <select name="sedici_gf_layout_simple" id="mi_desplegable" class="regular-text">
+                    <select name="sedici_footer_option_selected" id="mi_desplegable" class="regular-text">
                         <?php 
                         if ( ! empty( $args['form_options'] ) && is_array( $args['form_options'] ) ) {
                             foreach ( $args['form_options'] as $opcion ) {
                                 
                                 $nombre_opcion = ucwords( str_replace( '-', ' ', $opcion ) );
                                 
-                                echo '<option value="' . esc_attr( $opcion ) . '">' . esc_html( $nombre_opcion ) . '</option>';
+                                echo '<option value="' . esc_attr( $opcion ) . '" ' . selected( $args['footer_type_selected'], $opcion, false ) . '>' . esc_html( $nombre_opcion ) . '</option>';
                             }
                         } else {
                             echo '<option value="">No hay variantes disponibles</option>';
