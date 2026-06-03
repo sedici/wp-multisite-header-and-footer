@@ -31,6 +31,7 @@ abstract class Manager_Interface {
     *   Setea el tipo de footer.
     */
     abstract public function set_footer_type($type);
+    abstract public function get_footer_type();
     
     /*
     *   Guarda la elección del tipo de footer realizada por el usuario. 
@@ -50,18 +51,6 @@ abstract class Manager_Interface {
     */
     public function get_footer_type_from_network() {
         return get_network_option(get_current_network_id(), 'sedici_footer_network_type');
-    }
-
-    /*
-    *   Obtiene el tipo de footer seteado para el sitio actual.
-    */
-    public function get_footer_type() {
-        $variante_elegida = get_option('sedici_footer_type', 'heredado');
-        
-        if ( $variante_elegida == 'heredado' ) {
-            $variante_elegida = $this->get_footer_type_from_network();
-        }
-        return $variante_elegida;
     }
 
     public function render_footer() {

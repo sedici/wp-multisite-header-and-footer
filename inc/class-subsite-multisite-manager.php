@@ -44,6 +44,18 @@ class Subsite_Multisite_Manager extends Manager_Interface {
         update_option('sedici_footer_type', $type);
     }
 
+    /*
+    *   Obtiene el tipo de footer seteado para el sitio actual.
+    */
+    public function get_footer_type() {
+        $variante_elegida = get_option('sedici_footer_type', 'heredado');
+
+        if ( $variante_elegida == 'heredado' ) {
+            $variante_elegida = $this->get_footer_type_from_network();
+        }
+        return $variante_elegida;
+    }
+
     /**
     * Devuelve las opciones disponibles para el contexto de un multisitio y la interfaz de admin de un subsitio
     */
@@ -65,6 +77,7 @@ class Subsite_Multisite_Manager extends Manager_Interface {
 
     public function sync_with_network() {
         update_option('sedici_footer_status', 'heredado');
+        update_option('sedici_footer_type', 'heredado');
     }
 
 }
