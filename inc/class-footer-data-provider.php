@@ -11,7 +11,7 @@ class Footer_Data_Provider {
         return [
             'prebi-sedici' => [
                 'color_fondo'     => '#242424',
-                'logo_dependencia' => plugins_url( 'public/img/prebi-sedici-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
+                'logo_dependencia' => plugins_url( 'public/img/prebi-sedici-logo.svg', dirname( __DIR__ ) . '/multisite-footer.php' ),
                 'logo_secundario'    => plugins_url( 'public/img/sitios-web-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'PREBI-SEDICI',
