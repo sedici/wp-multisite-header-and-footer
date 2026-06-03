@@ -25,11 +25,6 @@ class Manager_Factory {
         else {
             return new Subsite_Multisite_Manager();   
         }
-
-        // 3. Si ES multisitio pero estamos en un Subsitio
-        if ( is_network_admin() ) {
-            
-        }
         
     }
 
