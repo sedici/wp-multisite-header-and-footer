@@ -40,6 +40,10 @@ class Subsite_Multisite_Manager extends Manager_Interface {
         update_option('sedici_footer_status', 0);
     }
 
+    public function set_footer_type($type) {
+        update_option('sedici_footer_type', $type);
+    }
+
     /**
     * Devuelve las opciones disponibles para el contexto de un multisitio y la interfaz de admin de un subsitio
     */

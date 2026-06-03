@@ -44,8 +44,8 @@ class Network_Multisite_Manager extends Manager_Interface {
     /*
     *   Setea el tipo de footer a nivel de sitio red.
     */
-    public function set_network_footer_type($type) {
-        update_network_option(get_current_network_id(), 'sedici_network_footer_type', $type);
+    public function set_footer_type($type) {
+        update_network_option(get_current_network_id(), 'sedici_footer_network_type', $type);
     }
 
     /**

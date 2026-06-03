@@ -26,12 +26,16 @@ abstract class Manager_Interface {
     abstract public function is_footer_enabled();
 
     abstract public function is_footer_inherited();
+
+    /*
+    *   Setea el tipo de footer.
+    */
+    abstract public function set_footer_type($type);
     
     /*
     *   Guarda la elección del tipo de footer realizada por el usuario. 
     */
     public function save_footer_type_choice($type) {
-
         if ($this->is_valid_footer_type($type)) {
 
             $this->set_footer_type($type);
@@ -58,13 +62,6 @@ abstract class Manager_Interface {
             $variante_elegida = $this->get_footer_type_from_network();
         }
         return $variante_elegida;
-    }
-
-    /*
-    *   Setea el tipo de footer para el sitio actual.
-    */
-    public function set_footer_type($type) {
-        update_option('sedici_footer_type', $type);
     }
 
     public function render_footer() {
