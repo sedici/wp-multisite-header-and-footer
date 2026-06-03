@@ -9,9 +9,6 @@ class Admin {
 
     public function __construct() {
 
-        //$this->manager = Manager_Factory::create();
-        //error_log('Manager creado: ' . get_class($this->manager) );
-
         add_action('network_admin_menu',array($this,'add_plugin_admin_menu'),30); 
         add_action('admin_menu', array($this, 'add_plugin_admin_menu'), 30);
 
@@ -61,11 +58,13 @@ class Admin {
             $footer_status = $this->manager->is_footer_enabled() ? 1 : 0;
             $form_options = $this->manager->get_available_options();
             $footer_is_inherited = $this->manager->is_footer_inherited();
+            $footer_type_selected = $this->manager->get_footer_type();
 
             $ruta_form = dirname(__DIR__) . '/admin/views/footer-form.php';
             load_template( $ruta_form, false, ['is_network_admin_interface' => $is_network_admin_interface, 
                                                'form_options' => $form_options, 
                                                'footer_status' => $footer_status,
+                                               'footer_type_selected' => $footer_type_selected,
                                                'footer_is_inherited' => $footer_is_inherited ] );
         }
                 
@@ -126,9 +125,19 @@ class Admin {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
-        if ( isset( $_POST['sedici_footer_selection'] ) && ! empty( $_POST['sedici_footer_selection'] ) ) {
-            $selected_option = sanitize_text_field( $_POST['sedici_gf_layout_simple'] );
-            $this->manager->save_footer_type_choices($selected_option);
+        // Chequeo nonce válido, acción del usuario es la que espera
+        if ( ! isset($_POST['sedici_multisite_footer_nonce']) || ! check_admin_referer('sedici_footer_save_type', 'sedici_multisite_footer_nonce') ) {
+            wp_die('Nonce inválido.');
+        }
+
+        // Chequeo el contexto, creo al manager correspondiente y guardo el estado del footer
+        $context = isset($_POST['sedici_admin_context']) ? $_POST['sedici_admin_context'] : 'subsite';
+
+        $this->manager = Manager_Factory::create($context);
+
+        if ( isset( $_POST['sedici_footer_option_selected'] ) && ! empty( $_POST['sedici_footer_option_selected'] ) ) {
+            $selected_option = sanitize_text_field( $_POST['sedici_footer_option_selected'] );
+            $this->manager->save_footer_type_choice($selected_option);
         }
 
         $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
