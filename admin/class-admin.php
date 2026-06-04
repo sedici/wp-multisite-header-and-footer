@@ -42,10 +42,14 @@ class Admin {
     
     }
 
+    private function user_can_access() {
+        return is_super_admin() && current_user_can('manage_network_options');
+    }
+
     public function render_form_multisite_footer()
     {   
 
-        if ( ! is_super_admin() ) {
+        if ( ! $this->user_can_access() ) {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
@@ -63,8 +67,7 @@ class Admin {
 
     public function save_footer_status() {
 
-        // Chequeo que el usuario es super admin
-        if ( ! current_user_can('manage_network_options') ) {
+        if ( ! $this->user_can_access() ) {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
@@ -90,8 +93,9 @@ class Admin {
 
 
     public function set_sync_status() {
-        // Chequeo que el usuario es super admin
-        if ( ! current_user_can('manage_network_options') ) {
+        
+
+        if ( ! $this->user_can_access() ) {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
@@ -112,9 +116,8 @@ class Admin {
     }
 
     public function save_footer_choice() {
-         // Chequeo que el usuario es super admin
 
-        if ( ! is_super_admin() ) {
+        if ( ! $this->user_can_access() ) {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
