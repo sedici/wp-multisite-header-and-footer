@@ -40,12 +40,12 @@ class Subsite_Multisite_Manager extends Manager_Interface {
     *   Obtiene el tipo de footer seteado para el sitio actual.
     */
     public function get_footer_type() {
-        $variante_elegida = get_option('sedici_footer_type', 'heredado');
+        $type = get_option('sedici_footer_type', 'heredado');
 
-        if ( $variante_elegida == 'heredado' ) {
-            $variante_elegida = $this->get_footer_type_from_network();
+        if ( $type == 'heredado' ) {
+            $type = $this->get_footer_type_from_network();
         }
-        return $variante_elegida;
+        return $type;
     }
 
     /**
