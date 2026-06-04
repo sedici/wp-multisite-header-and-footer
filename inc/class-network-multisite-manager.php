@@ -44,20 +44,9 @@ class Network_Multisite_Manager extends Manager_Interface {
         update_network_option(get_current_network_id(), 'sedici_footer_network_type', $type);
     }
 
-    /**
-    * Devuelve las opciones disponibles para el contexto de un multisitio y la interfaz de admin de la red.
-    */
-    public function get_available_options() {
-        $options = Footer_Data_Provider::get_options();
-
-        return $options;
-    }
-
-    /**
-    * Valida si la opción enviada por el form es válida para este contexto.
-    */
-    public function is_valid_footer_type( $type ) {
-        return Footer_Data_Provider::type_exists( $type );
+    public function get_data_for_form() {
+        return [ 'is_network_admin_interface' => true, 
+                 'is_footer_sync_with_network' => false ];
     }
 
 }

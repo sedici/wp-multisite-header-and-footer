@@ -14,24 +14,61 @@ abstract class Manager_Interface {
         add_action( 'wp_footer', [ $this, 'render_footer' ] );
     }
 
-    abstract public function disable_footer();
-    abstract public function enable_footer();
-    abstract public function get_available_options();
+    abstract protected function disable_footer();
+    abstract protected function enable_footer();
+    abstract public function is_footer_enabled();
+    abstract public function is_footer_inherited();
+    abstract public function set_footer_type($type);
+    abstract public function get_footer_type();
+
+    abstract public function get_data_for_form();
+
 
     /**
     * Valida si la opción enviada por el form es válida para este contexto.
     */
-    abstract public function is_valid_footer_type( $option );
+    public function is_valid_footer_type( $type ) {
+        return Footer_Data_Provider::type_exists( $type );
+    }
 
-    abstract public function is_footer_enabled();
-
-    abstract public function is_footer_inherited();
-
-    /*
-    *   Setea el tipo de footer.
+    /**
+    * Devuelve las opciones disponibles para el contexto de un multisitio y la interfaz de admin de la red.
     */
-    abstract public function set_footer_type($type);
-    abstract public function get_footer_type();
+    public function get_available_options() {
+        $options = Footer_Data_Provider::get_options();
+
+        return $options;
+    }
+
+    /**
+     * Carga el formulario de admin del footer pasando los datos necesarios para su renderizado.
+     */
+    public function load_form() {
+        $common_args = [
+            'footer_status' => $this->is_footer_enabled() ? 1 : 0,
+            'form_options' => $this->get_available_options(),
+            'footer_type_selected' => $this->get_footer_type()
+        ];
+        
+        $args = array_merge( $common_args, $this->get_data_for_form() );
+
+        $ruta_form = dirname(__DIR__) . '/admin/views/footer-form.php';
+        load_template( $ruta_form, false, $args );
+
+    }
+
+    public function save_footer_status($status) {
+        error_log("Guardando status del footer: " . $status);
+        if ($status == '1') {
+            $this->enable_footer();
+        }
+        else if ($status == '0') {
+            $this->disable_footer();
+        }
+        else {
+            wp_die('Valor de status de footer no válido.');
+        }
+    }
     
     /*
     *   Guarda la elección del tipo de footer realizada por el usuario. 

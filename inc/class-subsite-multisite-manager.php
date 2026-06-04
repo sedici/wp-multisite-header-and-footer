@@ -56,30 +56,29 @@ class Subsite_Multisite_Manager extends Manager_Interface {
         return $variante_elegida;
     }
 
-    /**
-    * Devuelve las opciones disponibles para el contexto de un multisitio y la interfaz de admin de un subsitio
-    */
-    public function get_available_options() {
-        $options = Footer_Data_Provider::get_options();
-
-        array_unshift( $options, 'heredado' );
-        
-        return $options;
+    public function get_data_for_form() {
+        return [
+            'is_network_admin_interface' => false,
+            'is_footer_sync_with_network' => (get_option('sedici_is_subsite_footer_sync_with_network') == 1)
+        ];
     }
 
-
-    /**
-    * Valida si la opción enviada por el form es válida para este contexto.
-    */
-    public function is_valid_footer_type( $type ) {
-        return Footer_Data_Provider::type_exists( $type ) || $type === 'heredado';
+    public function set_sync_status( $status ) {
+        if ( $status == '1' ) {
+            $this->sync_with_network();
+        }
+        else if ( $status == '0' ) {
+            $this->desync_with_network();
+        }
     }
 
-    public function desync_with_network() {
+    protected function desync_with_network() {
         update_option('sedici_is_subsite_footer_sync_with_network', 0);
+        update_option('sedici_footer_status', '1');
+        update_option('sedici_footer_type', 'prebi-sedici');
     }
 
-    public function sync_with_network() {
+    protected function sync_with_network() {
         update_option('sedici_is_subsite_footer_sync_with_network', 1);
         update_option('sedici_footer_status', 'heredado');
         update_option('sedici_footer_type', 'heredado');
