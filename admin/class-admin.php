@@ -21,7 +21,7 @@ class Admin {
         add_action( 'admin_post_sedici_footer_selection', [ $this, 'save_footer_choice' ] );
 
         // Registro hook para procesar el form de sincronización con la red
-        add_action( 'admin_post_sedici_footer_sync_with_network', [ $this, 'set_sync_status_with_network' ] );
+        add_action( 'admin_post_sedici_footer_sync_with_network', [ $this, 'set_sync_status' ] );
 
     }
 
@@ -89,7 +89,7 @@ class Admin {
     }
 
 
-    public function set_sync_status_with_network() {
+    public function set_sync_status() {
         // Chequeo que el usuario es super admin
         if ( ! current_user_can('manage_network_options') ) {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
