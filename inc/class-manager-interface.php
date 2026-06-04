@@ -58,6 +58,9 @@ abstract class Manager_Interface {
 
     }
 
+    /**
+     * Guarda la elección de habilitar o deshabilitar el footer realizada por el usuario.
+     */
     public function save_footer_status($status) {
         
         if ($status == '1') {
@@ -91,6 +94,9 @@ abstract class Manager_Interface {
         return get_network_option(get_current_network_id(), 'sedici_footer_network_type');
     }
 
+    /**
+     * Renderiza el footer en el frontend
+     */
     public function render_footer() {
         
         if ( ! $this->is_footer_enabled() ) {
