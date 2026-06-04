@@ -32,7 +32,7 @@ abstract class Manager_Interface {
     }
 
     /**
-    * Devuelve las opciones disponibles para el contexto de un multisitio y la interfaz de admin de la red.
+    * Devuelve las opciones disponibles para setear el tipo de footer.
     */
     public function get_available_options() {
         $options = Footer_Data_Provider::get_options();
@@ -58,7 +58,7 @@ abstract class Manager_Interface {
     }
 
     public function save_footer_status($status) {
-        error_log("Guardando status del footer: " . $status);
+        
         if ($status == '1') {
             $this->enable_footer();
         }
