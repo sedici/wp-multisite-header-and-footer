@@ -6,7 +6,7 @@ use SediciMultisiteFooter\Inc\Manager_Interface;
 
 /*
 *
-*   Clase para englobar el comportamiento de la administración de red de un multisitio.
+*   Clase para englobar el comportamiento de la administración de red del footer en un multisitio.
 */
 class Network_Multisite_Manager extends Manager_Interface {
 

@@ -3,6 +3,9 @@
 namespace SediciMultisiteFooter\Inc;
 use SediciMultisiteFooter\Inc\Manager_Interface;
 
+/**
+ * Clase para englobar el comportamiento de la administración del footer en un subsitio dentro de un multisitio.
+ */
 class Subsite_Multisite_Manager extends Manager_Interface {
 
     public function is_footer_enabled() {
