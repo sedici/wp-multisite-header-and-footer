@@ -10,33 +10,38 @@ use SediciMultisiteFooter\Inc\Manager_Interface;
 class Single_Site_Manager extends Manager_Interface {
 
     public function is_footer_enabled() {
-        return get_option('sedici_footer_status') == 1;
-    }
+        
+        $local_status = get_option('sedici_footer_status', 'heredado');
 
-    public function disable_footer() {
-        update_option('sedici_footer_status', 0);
+        if ( $local_status == '1' )
+            return true;
+        else return false;
     }
 
     public function enable_footer() {
         update_option('sedici_footer_status', 1);
     }
 
-    /*
-    *   Obtiene el tipo de footer seteado para el sitio actual. Si no se encuentra, devuelve 'prebi-sedici' por defecto.
-    */
-    public function get_footer_type() {
-        return get_option('sedici_footer_type', 'prebi-sedici');
+    public function disable_footer() {
+        update_option('sedici_footer_status', 0);
     }
 
-    /*
-    *   Setea el tipo de footer para el sitio actual.
-    */
     public function set_footer_type($type) {
         update_option('sedici_footer_type', $type);
     }
 
-    public function save_footer_type_choice() {
-        
+    /*
+    *   Obtiene el tipo de footer seteado para el sitio actual.
+    */
+    public function get_footer_type() {
+        $type = get_option('sedici_footer_type', 'prebi-sedici');
+
+        return $type;
+    }
+
+    public function get_data_for_form() {
+        return [ 'is_network_admin_interface' => true, 
+                 'is_footer_sync_with_network' => false ];
     }
 }
 
