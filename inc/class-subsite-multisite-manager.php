@@ -18,17 +18,6 @@ class Subsite_Multisite_Manager extends Manager_Interface {
 
     }
 
-    public function is_footer_inherited() {
-        $subsite_footer_status = get_option('sedici_footer_status', 'heredado');
-        $variante_elegida = get_option('sedici_footer_type', 'heredado');
-        
-        if ( $subsite_footer_status == 'heredado' && $variante_elegida == 'heredado' )
-            return true;
-        else 
-            return false;
-        
-    }
-
     public function enable_footer() {
         update_option('sedici_footer_status', 1);
     }

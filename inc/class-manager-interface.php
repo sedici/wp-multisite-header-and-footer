@@ -4,7 +4,9 @@ namespace SediciMultisiteFooter\Inc;
 use SediciMultisiteFooter\Inc\Footer_Data_Provider;
 use SediciMultisiteFooter\Inc\Multisite_Helper;
 
-
+/**
+ * Clase abstracta que define la interfaz común para los managers de footer.
+ */
 abstract class Manager_Interface {
 
     use Multisite_Helper;
@@ -17,7 +19,6 @@ abstract class Manager_Interface {
     abstract protected function disable_footer();
     abstract protected function enable_footer();
     abstract public function is_footer_enabled();
-    abstract public function is_footer_inherited();
     abstract public function set_footer_type($type);
     abstract public function get_footer_type();
 
