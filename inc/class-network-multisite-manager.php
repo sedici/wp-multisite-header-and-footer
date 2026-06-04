@@ -40,6 +40,9 @@ class Network_Multisite_Manager extends Manager_Interface {
         update_network_option(get_current_network_id(), 'sedici_footer_network_type', $type);
     }
 
+    /**
+     * Devuelve datos adicionales para renderizar el formulario de configuracion del footer
+     */
     public function get_data_for_form() {
         return [ 'is_network_admin_interface' => true, 
                  'is_footer_sync_with_network' => false ];

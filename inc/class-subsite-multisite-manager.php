@@ -45,6 +45,9 @@ class Subsite_Multisite_Manager extends Manager_Interface {
         return $variante_elegida;
     }
 
+    /**
+     * Devuelve datos adicionales para renderizar el formulario de configuracion del footer
+     */
     public function get_data_for_form() {
         return [
             'is_network_admin_interface' => false,
@@ -52,6 +55,9 @@ class Subsite_Multisite_Manager extends Manager_Interface {
         ];
     }
 
+    /**
+     * Guarda la elección de sincronizar o no el subsitio con la red.
+     */
     public function set_sync_status( $status ) {
         if ( $status == '1' ) {
             $this->sync_with_network();
@@ -61,12 +67,18 @@ class Subsite_Multisite_Manager extends Manager_Interface {
         }
     }
 
+    /**
+     * Desincroniza el footer del subsitio de la red
+     */
     protected function desync_with_network() {
         update_option('sedici_is_subsite_footer_sync_with_network', 0);
         update_option('sedici_footer_status', '1');
         update_option('sedici_footer_type', 'prebi-sedici');
     }
 
+    /**
+     * Sincroniza el footer del subsitio con la red
+     */
     protected function sync_with_network() {
         update_option('sedici_is_subsite_footer_sync_with_network', 1);
         update_option('sedici_footer_status', 'heredado');

@@ -21,7 +21,6 @@ abstract class Manager_Interface {
     abstract public function is_footer_enabled();
     abstract public function set_footer_type($type);
     abstract public function get_footer_type();
-
     abstract public function get_data_for_form();
 
 
