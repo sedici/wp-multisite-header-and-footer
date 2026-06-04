@@ -42,10 +42,16 @@ class Admin {
     
     }
 
+    /**
+     * Verifica si el usuario actual es super admin y tiene el permiso adecuado.
+     */
     private function user_can_access() {
-        return is_super_admin() && current_user_can('manage_network_options');
+        return is_super_admin() && (current_user_can('manage_network_options') || current_user_can('manage_options'));
     }
 
+    /**
+     * Renderiza el formulario de configuración del footer
+     */
     public function render_form_multisite_footer()
     {   
 
@@ -65,6 +71,9 @@ class Admin {
     }
 
 
+    /**
+     * Guarda el estado del footer (activo/inactivo) para la red o el sitio, dependiendo del contexto.
+     */
     public function save_footer_status() {
 
         if ( ! $this->user_can_access() ) {
@@ -92,6 +101,9 @@ class Admin {
     }
 
 
+    /**
+     * Guarda el estado de sincronización del subsitio con la red
+     */
     public function set_sync_status() {
         
 
@@ -115,6 +127,9 @@ class Admin {
         exit;
     }
 
+    /**
+     * Guarda la opción seleccionada para el footer
+     */
     public function save_footer_choice() {
 
         if ( ! $this->user_can_access() ) {
@@ -141,6 +156,9 @@ class Admin {
 
     }
 
+    /**
+     * Registra y encola los estilos CSS para la página de administración del plugin
+     */
     public function reg_admin_styles(){
 
 		$css_url = plugins_url( 'css/sedici-global-footer-admin.css', __FILE__ );
