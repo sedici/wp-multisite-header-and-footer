@@ -1,30 +1,30 @@
-# Multisite Header and Footer | 1.0
-
-Un plugin para WordPress que permite agregar un header y footer personalizados a nivel de red, mostrándolos en todos los sitios dentro de una instalación multisitio.
+# Multisite Footer
 
 ## Descripción
 
-Multisite Header and Footer es un plugin diseñado específicamente para instalaciones multisitio de WordPress. El plugin permite a los administradores de red definir un header y un footer común que se mostrará automáticamente en todos los sitios de la red.
+Multisite Footer es un plugin para WordPress diseñado para mostrar un pie de página institucional uniforme en todos los sitios de una red multisitio. Además, es funcional en instalaciones estándar de sitio único (Single site).
 
-## Características
-
-- Configuración centralizada desde el panel de Network Admin
-- Editor visual para personalizar fácilmente el contenido del header y footer
-- Posibilidad de excluir sitios específicos [PROXIMAMENTE]
 
 ## Instalación
 
-1. Descarga el archivo .zip del plugin
-2. En tu panel de Network Admin, ve a Plugins → Añadir Nuevo
-3. Haz clic en "Subir Plugin" y selecciona el archivo descargado
-4. Haz clic en "Instalar ahora"
-5. Una vez instalado, haz clic en "Activar plugin para toda la red"
+1. Descarga el archivo .zip del plugin.
+2. En tu panel de administración, ve a Plugins -> Añadir Nuevo.
+3. Haz clic en "Subir Plugin" y selecciona el archivo descargado.
+4. Haz clic en "Instalar ahora".
+5. Activa el plugin (en Multisitio se recomienda la "Activación para toda la red").
+
 
 ## Configuración
 
-1. Después de activar el plugin, ve a Network Admin → Multisite Header and Footer
-2. Utiliza el editor para crear el contenido de tu header y footer
-3. Configura las opciones adicionales según tus necesidades
-4. Guarda los cambios
+### En Redes Multisitio
 
+1. Accede a Network Admin -> Sitios -> Configuración Footer SEDICI.
+2. Define el estado global (Activado/Desactivado) y selecciona la variante de diseño deseada.
+3. Por defecto, todos los subsitios estarán sincronizados y heredarán esta configuración automáticamente.
+4. En cada subsitio, el administrador puede optar por desvincularse de la red para establecer una configuración local propia o desactivar el footer específicamente para ese sitio.
 
+### En Sitios Únicos
+
+1. Accede a Ajustes -> Configuración Footer SEDICI.
+2. Activa el footer y selecciona la variante de diseño que mejor se adapte a las necesidades del sitio.
+3. Guarda los cambios para que el footer se renderice automáticamente en el frontend.
