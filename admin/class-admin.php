@@ -57,6 +57,12 @@ class Admin {
         return (isset($_POST['sedici_multisite_footer_nonce']) && check_admin_referer($nonce_action, 'sedici_multisite_footer_nonce'));
     }
 
+    private function redirect_back() {
+        $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
+        wp_safe_redirect($url_dest);
+        exit;
+    }
+
     /**
      * Renderiza el formulario de configuración del footer
      */
@@ -102,9 +108,8 @@ class Admin {
 
         $this->manager->save_footer_status($input);
 
-        $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
-        wp_redirect($url_dest);
-        exit;
+
+        $this->redirect_back();
     }
 
 
@@ -128,9 +133,7 @@ class Admin {
 
         $this->manager->set_sync_status($input);
 
-        $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
-        wp_redirect($url_dest);
-        exit;
+        $this->redirect_back();
     }
 
     /**
@@ -155,9 +158,7 @@ class Admin {
             $this->manager->save_footer_type_choice($selected_option);
         }
 
-        $url_dest = add_query_arg( array( 'success' => 'true' ), wp_get_referer() );
-        wp_redirect($url_dest);
-        exit;
+        $this->redirect_back();
 
     }
 
