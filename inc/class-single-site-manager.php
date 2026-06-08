@@ -31,6 +31,13 @@ class Single_Site_Manager extends Manager_Interface {
     }
 
     /*
+    *   Obtiene el tipo de footer seteado a nivel de red.
+    */
+    public function get_footer_type_from_network() {
+        return get_option('sedici_footer_type');
+    }
+
+    /*
     *   Obtiene el tipo de footer seteado para el sitio actual.
     */
     public function get_footer_type() {

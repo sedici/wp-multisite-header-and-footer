@@ -48,6 +48,13 @@ class Subsite_Multisite_Manager extends Manager_Interface {
         return $type;
     }
 
+    /*
+    *   Obtiene el tipo de footer seteado a nivel de red.
+    */
+    public function get_footer_type_from_network() {
+        return get_network_option(get_current_network_id(), 'sedici_footer_network_type');
+    }
+
     /**
      * Devuelve datos adicionales para renderizar el formulario de configuracion del footer
      */

@@ -21,6 +21,7 @@ abstract class Manager_Interface {
     abstract public function is_footer_enabled();
     abstract public function set_footer_type($type);
     abstract public function get_footer_type();
+    abstract public function get_footer_type_from_network();
     abstract public function get_data_for_form();
 
 
@@ -84,13 +85,6 @@ abstract class Manager_Interface {
         else {
             wp_die('Opción de footer no válida.');
         }
-    }
-
-    /*
-    *   Obtiene el tipo de footer seteado a nivel de red.
-    */
-    public function get_footer_type_from_network() {
-        return get_network_option(get_current_network_id(), 'sedici_footer_network_type');
     }
 
     /**
