@@ -53,10 +53,8 @@ class Admin {
     /**
      * Chequea que el nonce sea válido y que la acción del usuario es la que espera
      */
-    private function validate_request($nonce_action) {
-        if ( ! isset($_POST['sedici_multisite_footer_nonce']) || ! check_admin_referer($nonce_action, 'sedici_multisite_footer_nonce') ) {
-            wp_die('Nonce inválido.');
-        }
+    private function nonce_is_valid($nonce_action) {
+        return (isset($_POST['sedici_multisite_footer_nonce']) && check_admin_referer($nonce_action, 'sedici_multisite_footer_nonce'));
     }
 
     /**
@@ -90,7 +88,9 @@ class Admin {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
         
-        $this->validate_request('sedici_footer_save_status');
+        if ( ! $this->nonce_is_valid('sedici_footer_save_status')) {
+            wp_die('Nonce inválido.');
+        }
 
         // Chequeo el contexto, creo al manager correspondiente y guardo el estado del footer
 
@@ -118,7 +118,9 @@ class Admin {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
-        $this->validate_request('sedici_footer_sync_with_network');
+        if ( ! $this->nonce_is_valid('sedici_footer_sync_with_network')) {
+            wp_die('Nonce inválido.');
+        }
 
         $this->manager = Manager_Factory::create('subsite');
 
@@ -140,7 +142,9 @@ class Admin {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
-        $this->validate_request('sedici_footer_save_type');
+        if ( ! $this->nonce_is_valid('sedici_footer_save_type')) {
+            wp_die('Nonce inválido.');
+        }
 
         // Chequeo el contexto, creo al manager correspondiente y guardo el estado del footer
         $context = isset($_POST['sedici_admin_context']) ? $_POST['sedici_admin_context'] : 'subsite';
