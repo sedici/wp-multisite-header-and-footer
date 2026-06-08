@@ -49,6 +49,16 @@ class Admin {
         return is_super_admin() && (current_user_can('manage_network_options') || current_user_can('manage_options'));
     }
 
+
+    /**
+     * Chequea que el nonce sea válido y que la acción del usuario es la que espera
+     */
+    private function validate_request($nonce_action) {
+        if ( ! isset($_POST['sedici_multisite_footer_nonce']) || ! check_admin_referer($nonce_action, 'sedici_multisite_footer_nonce') ) {
+            wp_die('Nonce inválido.');
+        }
+    }
+
     /**
      * Renderiza el formulario de configuración del footer
      */
@@ -79,11 +89,8 @@ class Admin {
         if ( ! $this->user_can_access() ) {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
-
-        // Chequeo nonce válido, acción del usuario es la que espera
-        if ( ! isset($_POST['sedici_multisite_footer_nonce']) || ! check_admin_referer('sedici_footer_save_status', 'sedici_multisite_footer_nonce') ) {
-            wp_die('Nonce inválido.');
-        }
+        
+        $this->validate_request('sedici_footer_save_status');
 
         // Chequeo el contexto, creo al manager correspondiente y guardo el estado del footer
 
@@ -111,10 +118,7 @@ class Admin {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
-        // Chequeo nonce válido, acción del usuario es la que espera
-        if ( ! isset($_POST['sedici_multisite_footer_nonce']) || ! check_admin_referer('sedici_footer_sync_with_network', 'sedici_multisite_footer_nonce') ) {
-            wp_die('Nonce inválido.');
-        }
+        $this->validate_request('sedici_footer_sync_with_network');
 
         $this->manager = Manager_Factory::create('subsite');
 
@@ -136,10 +140,7 @@ class Admin {
             wp_die( 'No tienes permisos suficientes para realizar esta acción.' );
         }
 
-        // Chequeo nonce válido, acción del usuario es la que espera
-        if ( ! isset($_POST['sedici_multisite_footer_nonce']) || ! check_admin_referer('sedici_footer_save_type', 'sedici_multisite_footer_nonce') ) {
-            wp_die('Nonce inválido.');
-        }
+        $this->validate_request('sedici_footer_save_type');
 
         // Chequeo el contexto, creo al manager correspondiente y guardo el estado del footer
         $context = isset($_POST['sedici_admin_context']) ? $_POST['sedici_admin_context'] : 'subsite';
