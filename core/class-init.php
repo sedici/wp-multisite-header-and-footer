@@ -4,7 +4,7 @@ namespace SediciMultisiteFooter\Core;
 use SediciMultisiteFooter\Admin\Admin;
 use SediciMultisiteFooter\Inc\Manager_Factory;
 
-require_once 'class-loader.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-loader.php';
 
 
 /**

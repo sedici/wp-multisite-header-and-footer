@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'SEDICI_MULTISITE_FOOTER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'core/class-autoloader.php';
-require_once 'core/class-init.php';
+require_once SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'core/class-init.php';
 
 
 /**
