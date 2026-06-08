@@ -23,7 +23,7 @@ class Footer_Data_Provider {
             ],
             'cesgi' => [
                 'color_fondo'     => '#242424',
-                'logo_dependencia' => plugins_url( 'public/img/cesgi-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
+                'logo_dependencia' => plugins_url( 'public/img/cesgi-logo.svg', dirname( __DIR__ ) . '/multisite-footer.php' ),
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia' => 'CESGI',
                 'url_dependencia' => 'https://cesgi.cic.gba.gob.ar/',
@@ -33,7 +33,7 @@ class Footer_Data_Provider {
             'prebi-cesgi' => [
                 'color_fondo'     => '#242424',
                 'logo_dependencia1' => plugins_url( 'public/img/prebi-sedici-logo.svg', dirname( __DIR__ ) . '/multisite-footer.php' ),
-                'logo_dependencia2' => plugins_url( 'public/img/cesgi-logo.png', dirname( __DIR__ ) . '/multisite-footer.php' ),
+                'logo_dependencia2' => plugins_url( 'public/img/cesgi-logo.svg', dirname( __DIR__ ) . '/multisite-footer.php' ),
                 'texto_principal' => 'Sitio web desarrollado en colaboracion con',
                 'nombre_dependencia1' => 'PREBI-SEDICI',
                 'nombre_dependencia2' => 'CESGI',
