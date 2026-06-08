@@ -31,11 +31,12 @@ class Admin {
      */
     public function add_plugin_admin_menu() {
         $parent_slug = is_network_admin() ? 'sites.php' : 'options-general.php';
+        $capability = is_multisite() ? 'manage_network_options' : 'manage_options';
         add_submenu_page(
             $parent_slug,                  
             'Configuración Footer SEDICI', 
             'Configuración Footer SEDICI',               
-            'manage_network_options',      
+            $capability,      
             'sedici-global-footer',      
             [ $this, 'render_form_multisite_footer' ]
         );

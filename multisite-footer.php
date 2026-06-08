@@ -16,12 +16,14 @@
  /**
  * Si se accede desde afuera de wordpress aborta la ejecución.
  */
-if ((! defined( 'WPINC' ) ) or (! is_multisite())) die;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
- define( 'SEDICI_MULTISITE_FOOTER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'SEDICI_MULTISITE_FOOTER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
- require_once SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'core/class-autoloader.php';
- require_once 'core/class-init.php';
+require_once SEDICI_MULTISITE_FOOTER_PLUGIN_DIR . 'core/class-autoloader.php';
+require_once 'core/class-init.php';
 
 
 /**
