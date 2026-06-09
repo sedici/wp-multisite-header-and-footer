@@ -34,12 +34,11 @@
         // Convierte el resto del namespace en una ruta de carpetas (en minúsculas)
         $sub_path = strtolower(implode(DIRECTORY_SEPARATOR, $parts));
 
-        // 1. Insertamos un guion antes de cada mayúscula (excepto la primera)
-        $kebab_class_name = preg_replace('/(?<!^)[A-Z]/', '-$0', $class_name);
-        // 2. Pasamos todo a minúsculas y cambiamos guiones bajos por medios
-        $clean_class_name = strtolower(str_replace('_', '-', $kebab_class_name));
+        // 1. Limpieza de nombre: cambiamos guiones bajos por medios y pasamos a minúsculas
+        // Ej: "Footer_Factory" se convierte directamente en "footer-factory"
+        $clean_class_name = strtolower(str_replace('_', '-', $class_name));
 
-        // 3. Construimos el nombre del archivo siguiendo el formato class-{nombre-clase}.php
+        // 2. Construimos el nombre del archivo final
         $file_name = 'class-' . $clean_class_name . '.php';
 
         $full_path = $base_dir . ( !empty($sub_path) ? $sub_path . DIRECTORY_SEPARATOR : '' ) . $file_name;
