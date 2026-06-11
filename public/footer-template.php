@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <footer class="sedici-global-footer" style="background-color: <?php echo esc_attr( $args['datos_footer']['color_fondo'] ); ?>;">
     
     <!-- Contenedor de Logos Izquierdos -->
-    <div class="footer-logo-container" style="display: flex; align-items: center; gap: 15px;">
+    <div class="sedici-footer-logo-container" style="display: flex; align-items: center; gap: 15px;">
         <?php if ( $args['variante_elegida'] === 'prebi-cesgi' ) : ?>
             
             <!-- Logo 1 (PREBI-SEDICI) -->
@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
 
     <!-- Contenedor de Texto Central -->
-    <div class="footer-text-container">
+    <div class="sedici-footer-text-container">
         <p>
             Sitio web desarrollado en colaboración con
             <?php if ( $args['variante_elegida'] === 'prebi-cesgi' ) : ?>
@@ -80,7 +80,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <!-- Logo Secundario Derecho (Solo si aplica)-->
     <?php if ( $args['variante_elegida'] == 'prebi-sedici' && ! empty( $args['datos_footer']['logo_secundario'] ) ) : ?>
-        <div class="footer-logo-right-container">
+        <div class="sedici-footer-logo-right-container">
             <a href="<?php echo esc_url( $args['datos_footer']['url_logo_secundario'] ); ?>" target="_blank" rel="noopener noreferrer">
                 <img src="<?php echo esc_url( $args['datos_footer']['logo_secundario'] ); ?>" alt="Logo Institución">
             </a>
