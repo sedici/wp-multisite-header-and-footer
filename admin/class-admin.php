@@ -128,6 +128,14 @@ class Admin {
             wp_die('Nonce inválido.');
         }
 
+        if ( ! is_multisite() ) {
+            wp_die( 'Esta acción solo es válida en un entorno multisitio.' );
+        }
+
+        if ( ! is_network_admin() ) {
+            wp_die( 'Esta acción solo es válida para un subsitio.' );
+        }
+
         $this->manager = Manager_Factory::create('subsite');
 
         $input = isset( $_POST['input_sync_status'] ) ? $_POST['input_sync_status'] : '0';
