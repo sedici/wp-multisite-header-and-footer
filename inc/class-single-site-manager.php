@@ -46,6 +46,10 @@ class Single_Site_Manager extends Manager_Interface {
         return $type;
     }
 
+    /**
+     * Devuelve un array con los datos necesarios para el formulario de configuración del footer.
+     * is_network_admin se retorna en true porque es un sitio individual y no es necesario mostrar el checkbox de sincronización con la red.
+     */
     public function get_data_for_form() {
         return [ 'is_network_admin_interface' => true, 
                  'is_footer_sync_with_network' => false ];

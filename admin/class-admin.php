@@ -128,6 +128,14 @@ class Admin {
             wp_die('Nonce inválido.');
         }
 
+        if ( ! is_multisite() ) {
+            wp_die( 'Esta acción solo es válida en un entorno multisitio.' );
+        }
+
+        if ( ! is_network_admin() ) {
+            wp_die( 'Esta acción solo es válida para un subsitio.' );
+        }
+
         $this->manager = Manager_Factory::create('subsite');
 
         $input = isset( $_POST['input_sync_status'] ) ? $_POST['input_sync_status'] : '0';
@@ -168,9 +176,12 @@ class Admin {
      */
     public function reg_admin_styles(){
 
-		$css_url = plugins_url( 'css/sedici-global-footer-admin.css', __FILE__ );
-        wp_register_style("sedici-administration-style", $css_url);
-        wp_enqueue_style("sedici-administration-style");
+        if ( 'sedici-global-footer' !== ( $_GET['page'] ?? '' ) ) {
+            return;
+        }   
+        $css_url = plugins_url( 'css/sedici-global-footer-admin.css', __FILE__ );
+        wp_register_style( "sedici-administration-style", $css_url, [], '1.0.0' );
+        wp_enqueue_style( "sedici-administration-style" );
     }
 
 }
