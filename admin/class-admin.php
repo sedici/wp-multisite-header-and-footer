@@ -168,9 +168,12 @@ class Admin {
      */
     public function reg_admin_styles(){
 
-		$css_url = plugins_url( 'css/sedici-global-footer-admin.css', __FILE__ );
-        wp_register_style("sedici-administration-style", $css_url);
-        wp_enqueue_style("sedici-administration-style");
+        if ( 'sedici-global-footer' !== ( $_GET['page'] ?? '' ) ) {
+            return;
+        }   
+        $css_url = plugins_url( 'css/sedici-global-footer-admin.css', __FILE__ );
+        wp_register_style( "sedici-administration-style", $css_url, [], '1.0.0' );
+        wp_enqueue_style( "sedici-administration-style" );
     }
 
 }

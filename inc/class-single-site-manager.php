@@ -47,7 +47,7 @@ class Single_Site_Manager extends Manager_Interface {
     }
 
     public function get_data_for_form() {
-        return [ 'is_network_admin_interface' => true, 
+        return [ 'is_network_admin_interface' => false, 
                  'is_footer_sync_with_network' => false ];
     }
 }
