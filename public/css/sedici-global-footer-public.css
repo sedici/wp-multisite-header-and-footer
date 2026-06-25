@@ -1,0 +1,109 @@
+.sedici-global-footer {
+    /* El color de fondo se inyecta dinámicamente por PHP */
+    background-color: #333333; 
+    color: #ffffff;
+    
+    display: flex;
+    align-items: center;
+    position: relative; /* ¡Clave! Permite anclar el texto al centro */
+    padding: 15px 40px; 
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    width: 100%;
+}
+
+.sedici-global-footer .sedici-footer-logo-container {
+    /* Se queda a la izquierda y lo ponemos por encima en caso de pantallas chicas */
+    z-index: 10; 
+}
+
+.sedici-global-footer .sedici-footer-logo-container a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.sedici-global-footer .sedici-footer-logo-container img {
+    max-height: 15px; 
+    width: auto;
+    display: block;
+}
+
+.sedici-global-footer .sedici-footer-text-container {
+    /* Magia para centrar absolutamente */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center; /* Centramos las líneas de texto si hubiera más de una */
+
+    /* Evitamos que en pantallas medianas el texto se monte encima del logo */
+    width: 100%;
+    max-width: calc(100% - 300px); 
+    box-sizing: border-box;
+}
+
+.sedici-global-footer .sedici-footer-text-container p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #e0e0e0;
+}
+
+.sedici-global-footer .sedici-footer-text-container strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Posicionamiento del contenedor del logo derecho */
+.sedici-global-footer .sedici-footer-logo-right-container {
+    position: absolute;
+    right: 40px; /* Misma distancia que el padding del contenedor general */
+    z-index: 10;
+}
+
+.sedici-global-footer .sedici-footer-logo-right-container a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.sedici-global-footer .sedici-footer-logo-right-container img {
+    max-height: 30px; 
+    width: auto;
+    display: block;
+}
+
+/* Asegura que los enlaces del texto hereden el color correcto y no se vean azules */
+.sedici-global-footer .sedici-footer-text-container a {
+    color: inherit;
+    text-decoration: none; /* Quita el subrayado por defecto */
+    transition: opacity 0.2s ease; /* Suaviza el efecto hover */
+}
+
+/* Opcional: Un leve efecto visual cuando el usuario pasa el mouse por encima */
+.sedici-global-footer .sedici-footer-text-container a:hover {
+    opacity: 0.8;
+    text-decoration: underline; /* Agrega subrayado solo al posicionarse encima */
+}
+
+/* Adaptación para celulares y tablets pequeñas (Responsive) */
+@media (max-width: 900px) {
+    .sedici-global-footer {
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .sedici-global-footer .sedici-footer-text-container {
+        /* En celulares anulamos el centrado absoluto para que quede uno abajo del otro */
+        position: static; 
+        transform: none;
+        max-width: 100%;
+        margin-top: 15px; 
+    }
+
+    .sedici-global-footer .sedici-footer-logo-right-container {
+        position: static;
+        margin-top: 15px;
+    }
+}
