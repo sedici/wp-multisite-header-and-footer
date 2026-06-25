@@ -50,7 +50,7 @@ class Init {
 	}
 
 	public function reg_public_styles() {
-		$public_footer_css = plugins_url( 'public/css/sedici-global-footer-public.css', dirname( __DIR__ ) . '/multisite-footer.php' );		wp_register_style("multisite-manager-general-css", $public_footer_css);
+		$public_footer_css = plugins_url( 'public/css/sedici-global-footer-public-mini.css', dirname( __DIR__ ) . '/multisite-footer.php' );		wp_register_style("multisite-manager-general-css", $public_footer_css);
 		wp_enqueue_style("multisite-manager-general-css");
 	}
 
