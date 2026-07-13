@@ -113,6 +113,22 @@ class Admin {
         $this->redirect_back();
     }
 
+    private function check_context($context) {
+        if (isset($context) ){
+            
+            if ($context != 'subsite' && $context != 'network') {
+                wp_die('Contexto inválido');
+            }
+
+            if( $context === 'network' ) {
+                wp_die('Contexto inválido para esta acción. Solo se puede sincronizar desde un subsitio.');
+            }
+        }
+        else {
+            wp_die('Contexto no especificado. Esta acción solo es válida desde un subsitio.');
+        }
+    }
+
 
     /**
      * Guarda el estado de sincronización del subsitio con la red
@@ -132,9 +148,7 @@ class Admin {
             wp_die( 'Esta acción solo es válida en un entorno multisitio.' );
         }
 
-        if ( ! is_network_admin() ) {
-            wp_die( 'Esta acción solo es válida para un subsitio.' );
-        }
+        $this->check_context($_POST['sedici_admin_context']);
 
         $this->manager = Manager_Factory::create('subsite');
 
