@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
             <input type="hidden" name="input_sync_status" value="<?php echo $args['is_footer_sync_with_network'] ? '0' : '1'; ?>">
 
-            <input type="hidden" name="sedici_admin_context" value="subsite">
+            <input type="hidden" name="sedici_admin_context" value="<?php echo $args['is_network_admin_interface'] ? 'network' : 'subsite'; ?>">
 
             <?php wp_nonce_field('sedici_footer_sync_with_network', 'sedici_multisite_footer_nonce'); ?>
 
