@@ -132,7 +132,7 @@ class Admin {
             wp_die( 'Esta acción solo es válida en un entorno multisitio.' );
         }
 
-        if ( ! is_network_admin() ) {
+        if ( is_network_admin() ) {
             wp_die( 'Esta acción solo es válida para un subsitio.' );
         }
 
